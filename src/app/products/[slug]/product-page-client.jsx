@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Header from "@/components/header"
@@ -53,6 +53,34 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [showVideo, setShowVideo] = useState(false)
   const [activeTab, setActiveTab] = useState("description")
+
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play()
+          } else {
+            video.pause()
+          }
+        })
+      },
+      {
+        threshold: 0.5, // Video starts playing when 50% visible
+      }
+    )
+
+    observer.observe(video)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   // Sample reviews data - replace with real data from your database
   const reviews = [
@@ -326,7 +354,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                   <div className="absolute inset-0 flex items-center justify-center bg-black">
                     {/* Replace with your actual video */}
                     <video
-                      src="/videos/product-video.mp4"
+                      src="/video.mp4"
                       controls
                       autoPlay
                       muted
@@ -531,18 +559,22 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
 
           {/* Product Video Section */}
           <section className="mt-16">
-            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Бүтээгдэхүүний видео</h2>
-            <div className="relative aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden bg-muted border border-border">
-              <video
-                src="/videos/product-demo.mp4"
-                controls
-                poster="/homepage/video-poster.jpeg"
-                className="w-full h-full object-cover"
-              >
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </section>
+          <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Бүтээгдэхүүний видео</h2>
+          <div className="relative aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden bg-muted border border-border">
+            <video
+              ref={videoRef}
+              src="/video.mp4"
+              poster="/homepage/feature3.png"
+              className="w-full h-full object-cover"
+              muted // Required for autoplay to work in most browsers
+              loop // Optional: loop the video
+              playsInline // Better mobile support
+              controls
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </section>
 
           {/* Tabs Section: Description, Specs, How to Use */}
           <section className="mt-16">

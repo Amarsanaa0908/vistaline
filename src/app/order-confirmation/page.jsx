@@ -31,10 +31,10 @@ export default function OrderConfirmationPage() {
   }
 
   const steps = [
-    { icon: CheckCircle, label: "Order Confirmed", status: "complete" },
-    { icon: Package, label: "Processing", status: "current" },
-    { icon: Truck, label: "Shipped", status: "upcoming" },
-    { icon: CheckCircle, label: "Delivered", status: "upcoming" },
+    { icon: CheckCircle, label: "Баталгаажсан", status: "complete" },
+    { icon: Package, label: "Бэлдэж байна", status: "current" },
+    { icon: Truck, label: "Хүргэлтэнд гарсан", status: "upcoming" },
+    { icon: CheckCircle, label: "Хүргэсэн", status: "upcoming" },
   ]
 
   return (
@@ -47,18 +47,18 @@ export default function OrderConfirmationPage() {
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-accent/10 flex items-center justify-center">
               <CheckCircle className="h-10 w-10 text-accent" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">Thank You for Your Order!</h1>
-            <p className="text-muted-foreground">Your order has been confirmed and will be shipped soon.</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Таньд баярлалаа!</h1>
+            <p className="text-muted-foreground">Таны захиалга баталгаажсан удахгүй хүргэлтэнд гарах болно.</p>
           </div>
 
           {/* Order Info Card */}
           <div className="bg-card rounded-2xl border border-border p-6 lg:p-8 mb-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-border">
               <div>
-                <p className="text-sm text-muted-foreground">Order Number</p>
+                <p className="text-sm text-muted-foreground">Захиалгын дугаар</p>
                 <p className="text-xl font-bold text-foreground">{orderDetails.id}</p>
               </div>
-              <div className="flex gap-3">
+              {/* <div className="flex gap-3">
                 <Button variant="outline" size="sm" className="gap-2 bg-transparent">
                   <Download className="h-4 w-4" />
                   Receipt
@@ -67,23 +67,23 @@ export default function OrderConfirmationPage() {
                   <Share2 className="h-4 w-4" />
                   Share
                 </Button>
-              </div>
+              </div> */}
             </div>
 
             <div className="grid sm:grid-cols-2 gap-6 py-6">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Order Date</p>
+                <p className="text-sm text-muted-foreground mb-1">Захиалгын огноо</p>
                 <p className="font-medium text-foreground">{orderDetails.date}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Estimated Delivery</p>
+                <p className="text-sm text-muted-foreground mb-1">Хүргэгдэх огноо</p>
                 <p className="font-medium text-foreground">{orderDetails.estimatedDelivery}</p>
               </div>
             </div>
 
             {/* Order Progress */}
             <div className="pt-6 border-t border-border">
-              <h3 className="font-semibold text-foreground mb-6">Order Status</h3>
+              <h3 className="font-semibold text-foreground mb-6">Захиалгын төлөв</h3>
               <div className="flex items-center justify-between">
                 {steps.map((step, index) => (
                   <div key={step.label} className="flex flex-col items-center relative flex-1">
@@ -123,9 +123,9 @@ export default function OrderConfirmationPage() {
           <div className="bg-muted/50 rounded-xl p-6 mb-8 flex items-start gap-4">
             <Mail className="h-6 w-6 text-primary shrink-0" />
             <div>
-              <h3 className="font-medium text-foreground mb-1">Confirmation Email Sent</h3>
+              <h3 className="font-medium text-foreground mb-1">Баталгаажсан имэйл явуулсан</h3>
               <p className="text-sm text-muted-foreground">
-                We have sent a confirmation email to your inbox with your order details and tracking information.
+                Бид таны имэйл хаяг руу захиалгын дэлгэрэнгүй, хянах мэдээлэл явуулсан.
               </p>
             </div>
           </div>
@@ -134,20 +134,20 @@ export default function OrderConfirmationPage() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href={`/track-order?order=${orderId}`} className="flex-1">
               <Button variant="outline" className="w-full gap-2 bg-transparent">
-                Track Order
+                Захиалга хянах
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
             <Link href="/collections" className="flex-1">
-              <Button className="w-full">Continue Shopping</Button>
+              <Button className="w-full">Цааш үзэх</Button>
             </Link>
           </div>
 
           {/* Help Section */}
           <div className="mt-12 text-center">
-            <p className="text-sm text-muted-foreground mb-2">Need help with your order?</p>
+            <p className="text-sm text-muted-foreground mb-2">Тусламж хэрэгтэй юу?</p>
             <Link href="/contact" className="text-sm text-primary hover:underline">
-              Contact our support team
+              Манай багтай холбогдоорой
             </Link>
           </div>
         </div>

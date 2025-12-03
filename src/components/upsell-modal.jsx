@@ -3,11 +3,12 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { X, Check, Plus, ShoppingBag } from "lucide-react"
+import { X, Check, Plus, ShoppingBag, Percent, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
 import { cn } from "@/lib/utils"
 import { useCart } from "@/context/cart-context"
+
+const BUNDLE_DISCOUNT_PERCENT = 15
 
 export default function UpsellModal({ open, onClose, products, mainProduct, selectedColor }) {
   const [selectedUpsells, setSelectedUpsells] = useState([])
@@ -19,8 +20,14 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
     )
   }
 
-  const upsellTotal = products.filter((p) => selectedUpsells.includes(p.id)).reduce((sum, p) => sum + p.price, 0)
-  const grandTotal = mainProduct.price + upsellTotal
+  const selectedProducts = products.filter((p) => selectedUpsells.includes(p.id))
+  const upsellOriginalTotal = selectedProducts.reduce((sum, p) => sum + p.price, 0)
+  const upsellDiscountedTotal = selectedProducts.reduce((sum, p) => {
+    const discountedPrice = p.price * (1 - BUNDLE_DISCOUNT_PERCENT / 100)
+    return sum + discountedPrice
+  }, 0)
+  const totalSavings = upsellOriginalTotal - upsellDiscountedTotal
+  const grandTotal = mainProduct.price + upsellDiscountedTotal
 
   const handleAddUpsells = () => {
     products
@@ -28,7 +35,12 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
       .forEach((p) => {
         const color = p.colors ? p.colors[0] : { name: "Default", value: "#000", image: p.image }
         const size = p.sizes ? p.sizes[0] : "One Size"
-        addToCart(p, color, size)
+        const discountedProduct = {
+          ...p,
+          originalPrice: p.price,
+          price: Math.round(p.price * (1 - BUNDLE_DISCOUNT_PERCENT / 100) * 100) / 100,
+        }
+        addToCart(discountedProduct, color, size)
       })
     onClose()
   }
@@ -52,6 +64,14 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
           <button onClick={onClose} className="p-2 rounded-full hover:bg-muted transition-colors">
             <X className="h-5 w-5 text-muted-foreground" />
           </button>
+        </div>
+
+        <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 px-6 py-3 flex items-center justify-center gap-2 border-b border-border">
+          <Sparkles className="h-4 w-4 text-primary" />
+          <span className="text-sm font-semibold text-primary">
+            Bundle & Save {BUNDLE_DISCOUNT_PERCENT}% on add-ons!
+          </span>
+          <Sparkles className="h-4 w-4 text-primary" />
         </div>
 
         {/* Main Product */}
@@ -82,6 +102,8 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
             {products.map((product) => {
               const isSelected = selectedUpsells.includes(product.id)
               const productImage = product.colors ? product.colors[0].image : product.image
+              const discountedPrice = Math.round(product.price * (1 - BUNDLE_DISCOUNT_PERCENT / 100) * 100) / 100
+
               return (
                 <button
                   key={product.id}
@@ -93,10 +115,16 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
                 >
                   <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-muted flex-shrink-0">
                     <Image src={productImage || "/placeholder.svg"} alt={product.name} fill className="object-cover" />
+                    <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                      -{BUNDLE_DISCOUNT_PERCENT}%
+                    </div>
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium text-foreground truncate">{product.name}</h4>
-                    <p className="text-sm font-semibold text-primary">${product.price}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground line-through">${product.price}</span>
+                      <span className="text-sm font-bold text-primary">${discountedPrice}</span>
+                    </div>
                   </div>
                   <div
                     className={cn(
@@ -118,9 +146,26 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
 
         {/* Footer */}
         <div className="p-6 border-t border-border bg-muted/30">
+          {selectedUpsells.length > 0 && (
+            <div className="mb-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Percent className="h-4 w-4 text-green-600" />
+                <span className="text-sm font-medium text-green-700">Bundle Savings</span>
+              </div>
+              <span className="text-sm font-bold text-green-600">-${totalSavings.toFixed(2)}</span>
+            </div>
+          )}
+
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm text-muted-foreground">Total</span>
-            <span className="text-2xl font-bold text-foreground">${grandTotal}</span>
+            <div className="text-right">
+              {selectedUpsells.length > 0 && (
+                <span className="text-sm text-muted-foreground line-through mr-2">
+                  ${(mainProduct.price + upsellOriginalTotal).toFixed(2)}
+                </span>
+              )}
+              <span className="text-2xl font-bold text-foreground">${grandTotal.toFixed(2)}</span>
+            </div>
           </div>
           <div className="flex gap-3">
             <Button variant="outline" className="flex-1 bg-transparent" onClick={onClose}>

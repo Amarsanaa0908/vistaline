@@ -67,7 +67,7 @@ export default function CheckoutPage() {
       <div className="min-h-screen bg-background">
         <Header />
         <main className="py-20 text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Your cart is empty</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-4">Хоосон байна</h1>
           <p className="text-muted-foreground mb-8">Add some items to checkout</p>
           <Link href="/collections">
             <Button>Continue Shopping</Button>
@@ -105,12 +105,12 @@ export default function CheckoutPage() {
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8"
               >
                 <ChevronLeft className="h-4 w-4" />
-                Return to cart
+                Буцах
               </Link>
 
               {/* Progress Steps */}
               <div className="flex items-center gap-4 mb-8">
-                {["Information", "Shipping", "Payment"].map((label, index) => (
+                {["Мэдээлэл", "Хүргэлт", "Төлбөр"].map((label, index) => (
                   <div key={label} className="flex items-center gap-2">
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
@@ -139,7 +139,7 @@ export default function CheckoutPage() {
                       <h2 className="text-lg font-semibold text-foreground mb-4">Contact Information</h2>
                       <div className="space-y-4">
                         <div>
-                          <Label htmlFor="email">Email</Label>
+                          <Label htmlFor="email">Имэйл</Label>
                           <Input
                             id="email"
                             name="email"
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
                       <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label htmlFor="firstName">First Name</Label>
+                            <Label htmlFor="firstName">Нэр</Label>
                             <Input
                               id="firstName"
                               name="firstName"
@@ -179,17 +179,17 @@ export default function CheckoutPage() {
                           </div>
                         </div>
                         <div>
-                          <Label htmlFor="address">Address</Label>
+                          <Label htmlFor="address">Хаяг</Label>
                           <Input
                             id="address"
                             name="address"
-                            placeholder="Street address"
+                            placeholder="Дэлгэрэнгүй хаяг"
                             value={formData.address}
                             onChange={handleInputChange}
                             required
                           />
                         </div>
-                        <div>
+                        {/* <div>
                           <Label htmlFor="apartment">Apartment, suite, etc. (optional)</Label>
                           <Input
                             id="apartment"
@@ -197,14 +197,14 @@ export default function CheckoutPage() {
                             value={formData.apartment}
                             onChange={handleInputChange}
                           />
-                        </div>
-                        <div className="grid grid-cols-3 gap-4">
-                          <div>
+                        </div> */}
+                        <div className="grid gap-4">
+                          {/* <div>
                             <Label htmlFor="city">City</Label>
                             <Input id="city" name="city" value={formData.city} onChange={handleInputChange} required />
-                          </div>
+                          </div> */}
                           <div>
-                            <Label htmlFor="state">State</Label>
+                            <Label htmlFor="state">Хот, аймаг</Label>
                             <Input
                               id="state"
                               name="state"
@@ -213,13 +213,13 @@ export default function CheckoutPage() {
                               required
                             />
                           </div>
-                          <div>
+                          {/* <div>
                             <Label htmlFor="zip">ZIP Code</Label>
                             <Input id="zip" name="zip" value={formData.zip} onChange={handleInputChange} required />
-                          </div>
+                          </div> */}
                         </div>
                         <div>
-                          <Label htmlFor="phone">Phone (optional)</Label>
+                          <Label htmlFor="phone">Утасны дугаар</Label>
                           <Input
                             id="phone"
                             name="phone"
@@ -242,7 +242,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <Button type="button" size="lg" className="w-full" onClick={() => setStep(2)}>
-                      Continue to Shipping
+                      Үргэлжлүүлэх
                     </Button>
                   </div>
                 )}
@@ -295,10 +295,10 @@ export default function CheckoutPage() {
                         className="flex-1 bg-transparent"
                         onClick={() => setStep(1)}
                       >
-                        Back
+                        Буцах
                       </Button>
                       <Button type="button" className="flex-1" onClick={() => setStep(3)}>
-                        Continue to Payment
+                        Үргэлжлүүлэх
                       </Button>
                     </div>
                   </div>
@@ -307,8 +307,8 @@ export default function CheckoutPage() {
                 {/* Step 3: Payment */}
                 {step === 3 && (
                   <div className="space-y-6">
-                    <div>
-                      <h2 className="text-lg font-semibold text-foreground mb-4">Payment Method</h2>
+                    {/* <div>
+                      <h2 className="text-lg font-semibold text-foreground mb-4">Төлбөр төлөх</h2>
                       <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-3 mb-6">
                         <label
                           className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-colors ${
@@ -384,7 +384,7 @@ export default function CheckoutPage() {
                           </div>
                         </div>
                       )}
-                    </div>
+                    </div> */}
 
                     <div className="p-4 rounded-xl bg-muted/50 border border-border">
                       <div className="flex items-center gap-3">
@@ -405,10 +405,10 @@ export default function CheckoutPage() {
                         className="flex-1 bg-transparent"
                         onClick={() => setStep(2)}
                       >
-                        Back
+                        Буцах
                       </Button>
                       <Button type="submit" className="flex-1" disabled={isProcessing}>
-                        {isProcessing ? "Processing..." : `Pay $${total.toFixed(2)}`}
+                        {isProcessing ? "Уншиж байна..." : `Төлбөр шалгах`}
                       </Button>
                     </div>
                   </div>

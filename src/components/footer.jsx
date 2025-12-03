@@ -20,22 +20,22 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Shop</h3>
             <ul className="space-y-3 text-sm text-background/70">
               <li>
-                <Link href="/collections/new-arrivals" className="hover:text-background transition-colors">
+                <Link href="/" className="hover:text-background transition-colors">
                   Нүүр
                 </Link>
               </li>
               <li>
-                <Link href="/collections/men" className="hover:text-background transition-colors">
+                <Link href="/delivery" className="hover:text-background transition-colors">
                   Хүргэлт
                 </Link>
               </li>
               <li>
-                <Link href="/collections/women" className="hover:text-background transition-colors">
+                <Link href="/return" className="hover:text-background transition-colors">
                   Буцаалт
                 </Link>
               </li>
               <li>
-                <Link href="/collections/accessories" className="hover:text-background transition-colors">
+                <Link href="/faq" className="hover:text-background transition-colors">
                   Түгээмэл асуулт
                 </Link>
               </li>

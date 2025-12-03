@@ -1,10 +1,17 @@
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, Noto_Sans } from "next/font/google"
 
 import "./globals.css"
 import { CartProvider } from "@/context/cart-context"
+import MetaPixel from "@/components/meta-pixel"
 
 const geistSans = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
+
+const notoSans = Noto_Sans({
+  subsets: ['cyrillic', 'cyrillic-ext', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
 
 export const metadata = {
   title: "Vistaline - Агаар чийгшүүлэгч",
@@ -14,7 +21,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <head>
+        <MetaPixel />
+      </head>
+      <body className={`${notoSans.variable} ${notoSans.variable} font-sans antialiased`}>
         <CartProvider>{children}</CartProvider>
       </body>
     </html>

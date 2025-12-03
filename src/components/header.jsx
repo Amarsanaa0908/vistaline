@@ -23,7 +23,7 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href="/about"
-              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               Бидний тухай
             </Link>
@@ -95,7 +95,7 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <nav className="flex flex-col gap-4">
-              <Link href="/about" className="text-sm font-medium text-foreground">
+              <Link href="/about" className="text-sm font-medium text-muted-foreground">
                 Бидний тухай
               </Link>
               <Link href="/contact" className="text-sm font-medium text-muted-foreground">
