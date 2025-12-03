@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from "react"
 
 const CartContext = createContext(undefined)
 
@@ -13,6 +13,7 @@ export function CartProvider({ children }) {
   return []
 })
 const [isLoaded, setIsLoaded] = useState(true)
+const addingRef = useRef(false)
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
@@ -21,35 +22,40 @@ const [isLoaded, setIsLoaded] = useState(true)
     }
   }, [cartItems, isLoaded])
 
-  const addToCart = (product, selectedColor, selectedSize, quantity = 1) => {
-    setCartItems((prev) => {
-      const existingIndex = prev.findIndex(
-        (item) =>
-          item.id === product.id &&
-          item.selectedColor.name === selectedColor.name &&
-          item.selectedSize === selectedSize,
-      )
+   const addToCart = useCallback((product, selectedColor, selectedSize, quantity = 1) => {
+  setCartItems((prev) => {
+    const colorName = selectedColor?.name || null
+    const existingIndex = prev.findIndex(
+      (item) =>
+        item.id === product.id &&
+        (item.selectedColor?.name || null) === colorName &&
+        item.selectedSize === selectedSize,
+    )
 
-      if (existingIndex > -1) {
-        const updated = [...prev]
-        updated[existingIndex].quantity += quantity
-        return updated
+    if (existingIndex > -1) {
+      const updated = [...prev]
+      updated[existingIndex] = {
+        ...updated[existingIndex],
+        quantity: updated[existingIndex].quantity + quantity
       }
+      return updated
+    }
 
-      return [
-        ...prev,
-        {
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          originalPrice: product.originalPrice,
-          selectedColor,
-          selectedSize,
-          quantity,
-        },
-      ]
-    })
-  }
+    return [
+      ...prev,
+      {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: selectedColor?.image || product.image || product.images?.[0],
+        originalPrice: product.originalPrice,
+        selectedColor: selectedColor || null,
+        selectedSize,
+        quantity,
+      },
+    ]
+  })
+}, [])
 
   const removeFromCart = (id, colorName, size) => {
     setCartItems((prev) =>

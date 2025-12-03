@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input"
 import { products } from "@/lib/data"
 import { Minus, Plus, X, ShoppingBag, ArrowRight, Tag, Truck } from "lucide-react"
 import { useCart } from "@/context/cart-context"
+import { useEffect } from "react"
+import { apiList, callGet } from "@/axios/api"
 
 export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart, cartTotal, cartCount } = useCart()
@@ -18,8 +20,20 @@ export default function CartPage() {
   const freeShipping = cartTotal >= shippingThreshold
   const amountToFreeShipping = shippingThreshold - cartTotal
   const shipping = freeShipping ? 0 : 9.99
-  const tax = cartTotal * 0.08
+  const tax = cartTotal * 0
   const total = cartTotal + shipping + tax
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        callGet(`${apiList.cart}`)
+      } catch (error) {
+        console.log(error)
+      }
+    } 
+    
+    fetchData()
+  }, [])
 
   // Cross-sell products
   const crossSellProducts = products.filter((p) => !cartItems.some((item) => item.id === p.id)).slice(0, 4)
@@ -74,7 +88,7 @@ export default function CartPage() {
           </nav>
 
           <h1 className="text-3xl font-bold text-foreground mb-8">
-            Сагс ({cartCount} {cartCount === 1 ? "item" : "items"})
+            Сагс ({cartCount} бүтээгдэхүүн)
           </h1>
 
           {/* Free Shipping Progress */}
@@ -154,10 +168,10 @@ export default function CartPage() {
                           </button>
                         </div>
                         <div className="text-right">
-                          <p className="font-semibold text-foreground">${(item.price * item.quantity).toFixed(2)}</p>
+                          <p className="font-semibold text-foreground">{(item.price * item.quantity).toFixed(2)}₮</p>
                           {item.originalPrice && (
                             <p className="text-sm text-muted-foreground line-through">
-                              ${(item.originalPrice * item.quantity).toFixed(2)}
+                              {(item.originalPrice * item.quantity).toFixed(2)}₮
                             </p>
                           )}
                         </div>
@@ -171,11 +185,11 @@ export default function CartPage() {
               <div className="mt-8 p-6 rounded-xl bg-card border border-border">
                 <h3 className="font-medium text-foreground mb-4 flex items-center gap-2">
                   <Tag className="h-5 w-5 text-primary" />
-                  Have a promo code?
+                  Купон код байгаа юу?
                 </h3>
                 <div className="flex gap-3">
-                  <Input placeholder="Enter promo code" className="flex-1" />
-                  <Button variant="outline">Apply</Button>
+                  <Input placeholder="купон код..." className="flex-1" />
+                  <Button variant="outline">Шалгах</Button>
                 </div>
               </div>
             </div>
@@ -183,51 +197,51 @@ export default function CartPage() {
             {/* Order Summary */}
             <div className="mt-8 lg:mt-0">
               <div className="sticky top-24 p-6 rounded-xl bg-card border border-border">
-                <h2 className="text-lg font-semibold text-foreground mb-6">Order Summary</h2>
+                <h2 className="text-lg font-semibold text-foreground mb-6">Захиалгын хураангуй</h2>
                 <div className="space-y-4">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-medium text-foreground">${cartTotal.toFixed(2)}</span>
+                    <span className="text-muted-foreground">Дүн</span>
+                    <span className="font-medium text-foreground">{cartTotal.toFixed(2)}₮</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Shipping</span>
+                  {/* <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Хүргэлт</span>
                     <span className={`font-medium ${freeShipping ? "text-accent" : "text-foreground"}`}>
                       {freeShipping ? "FREE" : `$${shipping.toFixed(2)}`}
                     </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
+                  </div> */}
+                  {/* <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Estimated Tax</span>
                     <span className="font-medium text-foreground">${tax.toFixed(2)}</span>
-                  </div>
+                  </div> */}
                   <div className="pt-4 border-t border-border">
                     <div className="flex justify-between">
-                      <span className="font-semibold text-foreground">Total</span>
-                      <span className="text-xl font-bold text-foreground">${total.toFixed(2)}</span>
+                      <span className="font-semibold text-foreground">Нийт</span>
+                      <span className="text-xl font-bold text-foreground">{total.toFixed(2).toLocaleString()}₮</span>
                     </div>
                   </div>
                 </div>
                 <Link href="/checkout" className="block mt-6">
                   <Button size="lg" className="w-full gap-2">
-                    Proceed to Checkout
+                    Үргэлжлүүлэх
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
                 <p className="text-xs text-muted-foreground text-center mt-4">
-                  Taxes and shipping calculated at checkout
+                  Хүргэлт төлбөр төлөхөд бодогдоно
                 </p>
               </div>
             </div>
           </div>
 
           {/* Cross-sell Section */}
-          <section className="mt-16">
+          {/* <section className="mt-16">
             <h2 className="text-2xl font-bold text-foreground mb-8">You May Also Like</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {crossSellProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
-          </section>
+          </section> */}
         </div>
       </main>
       <Footer />
