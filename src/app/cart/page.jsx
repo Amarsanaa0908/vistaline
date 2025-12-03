@@ -102,12 +102,12 @@ export default function CartPage() {
               <div className="space-y-6">
                 {cartItems.map((item) => (
                   <div
-                    key={`${item.id}-${item.selectedColor.name}-${item.selectedSize}`}
+                    key={`${item.id}-${item.selectedColor?.name}-${item.selectedSize}`}
                     className="flex gap-4 p-4 rounded-xl bg-card border border-border"
                   >
                     <div className="relative w-24 h-32 rounded-lg overflow-hidden bg-muted shrink-0">
                       <Image
-                        src={item.selectedColor.image || "/placeholder.svg"}
+                        src={item.selectedColor?.image || "/placeholder.svg"}
                         alt={item.name}
                         fill
                         className="object-cover"
@@ -123,7 +123,7 @@ export default function CartPage() {
                             {item.name}
                           </Link>
                           <p className="text-sm text-muted-foreground mt-1">
-                            {item.selectedColor.name} / {item.selectedSize}
+                            {item.selectedColor?.name} / {item.selectedSize}
                           </p>
                         </div>
                         <button

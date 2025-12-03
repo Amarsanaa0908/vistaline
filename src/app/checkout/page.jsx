@@ -423,10 +423,10 @@ export default function CheckoutPage() {
 
                 <div className="space-y-4 mb-6">
                   {cartItems.map((item) => (
-                    <div key={`${item.id}-${item.selectedColor.name}-${item.selectedSize}`} className="flex gap-4">
+                    <div key={`${item.id}-${item.selectedColor?.name}-${item.selectedSize}`} className="flex gap-4">
                       <div className="relative w-16 h-20 rounded-lg overflow-hidden bg-muted">
                         <Image
-                          src={item.selectedColor.image || "/placeholder.svg"}
+                          src={item.selectedColor?.image || "/placeholder.svg"}
                           alt={item.name}
                           fill
                           className="object-cover"
@@ -438,7 +438,7 @@ export default function CheckoutPage() {
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-foreground text-sm truncate">{item.name}</p>
                         <p className="text-xs text-muted-foreground">
-                          {item.selectedColor.name} / {item.selectedSize}
+                          {item.selectedColor?.name} / {item.selectedSize}
                         </p>
                         <p className="text-sm font-medium text-foreground mt-1">
                           ${(item.price * item.quantity).toFixed(2)}
