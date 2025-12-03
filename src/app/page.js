@@ -22,7 +22,7 @@ export default function Home() {
           <div className="absolute inset-0">
             <Image
               src="/homepage/hero3.jpeg"
-              alt="Vistaline Fashion"
+              alt="Vistaline"
               fill
               className="object-cover"
               priority
@@ -64,15 +64,15 @@ export default function Home() {
               <div className="flex items-center gap-3">
                 <Truck className="h-6 w-6 text-primary" />
                 <div>
-                  <p className="font-medium text-foreground text-sm">Үнэгүй хүргэлт</p>
-                  <p className="text-xs text-muted-foreground">On orders over $100</p>
+                  <p className="font-medium text-foreground text-sm">Шуурхай хүргэлт</p>
+                  <p className="text-xs text-muted-foreground">Хот дотор</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <RefreshCw className="h-6 w-6 text-primary" />
                 <div>
                   <p className="font-medium text-foreground text-sm">Буцаах боломжтой</p>
-                  <p className="text-xs text-muted-foreground">48 цагийн дотор</p>
+                  <p className="text-xs text-muted-foreground">2 өдрийн дотор</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ export default function Home() {
         {/* Banner */}
         <section className="relative py-24">
           <div className="absolute inset-0">
-            <Image src="/homepage/cta.png" alt="Winter Collection" fill className="object-cover" />
+            <Image src="/homepage/cta.png" alt="Агаар чийгшүүлэгч" fill className="object-cover" />
             <div className="absolute inset-0 bg-foreground/50" />
           </div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

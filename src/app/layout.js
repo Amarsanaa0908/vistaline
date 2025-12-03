@@ -7,8 +7,8 @@ const geistSans = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Vistaline - Premium Fashion",
-  description: "Premium fashion for the modern individual. Quality craftsmanship meets contemporary design.",
+  title: "Vistaline - Агаар чийгшүүлэгч",
+  description: "Агаар чийгшүүлэгч, арома тараагч, LED шөнийн гэрэл. Өвлийн хуурай агаараас салаарай. 12-24 цагт хүргэнэ. Шалгаад төлөх боломжтой.",
 }
 
 export default function RootLayout({ children }) {

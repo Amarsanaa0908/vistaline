@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <h2 className="text-2xl font-bold mb-4">VISTALINE</h2>
             <p className="text-background/70 text-sm leading-relaxed">
-              Premium fashion for the modern individual. Quality craftsmanship meets contemporary design.
+              Агаар чийгшүүлэгч, арома тараагч, LED шөнийн гэрэл. Өвлийн хуурай агаараас салаарай. 12-24 цагт хүргэнэ.
             </p>
           </div>
 
@@ -21,61 +21,61 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-background/70">
               <li>
                 <Link href="/collections/new-arrivals" className="hover:text-background transition-colors">
-                  New Arrivals
+                  Нүүр
                 </Link>
               </li>
               <li>
                 <Link href="/collections/men" className="hover:text-background transition-colors">
-                  Men
+                  Хүргэлт
                 </Link>
               </li>
               <li>
                 <Link href="/collections/women" className="hover:text-background transition-colors">
-                  Women
+                  Буцаалт
                 </Link>
               </li>
               <li>
                 <Link href="/collections/accessories" className="hover:text-background transition-colors">
-                  Accessories
+                  Түгээмэл асуулт
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/collections/sale" className="hover:text-background transition-colors">
                   Sale
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
           {/* Help */}
           <div>
-            <h3 className="font-semibold mb-4">Help</h3>
+            <h3 className="font-semibold mb-4">Тусламж</h3>
             <ul className="space-y-3 text-sm text-background/70">
               <li>
                 <Link href="/contact" className="hover:text-background transition-colors">
-                  Contact Us
+                  Холбогдох
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="hover:text-background transition-colors">
-                  FAQ
+                  Түгээмэл асуулт
                 </Link>
               </li>
               <li>
                 <Link href="/track-order" className="hover:text-background transition-colors">
-                  Track Order
+                  Захиалга хянах
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-background transition-colors">
-                  About Us
+                  Бидний тухай
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Newsletter */}
-          <div>
+          {/* <div>
             <h3 className="font-semibold mb-4">Stay Updated</h3>
             <p className="text-sm text-background/70 mb-4">Subscribe for exclusive offers and new arrivals.</p>
             <div className="flex gap-2">
@@ -88,17 +88,17 @@ export default function Footer() {
                 Subscribe
               </Button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-12 pt-8 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-background/60">© 2025 VISTALINE. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-background/60">
-            <Link href="/privacy" className="hover:text-background transition-colors">
-              Privacy Policy
+            <Link href="/" className="hover:text-background transition-colors">
+              Нууцлалын бодлого
             </Link>
-            <Link href="/terms" className="hover:text-background transition-colors">
-              Terms of Service
+            <Link href="/" className="hover:text-background transition-colors">
+              Үйлчилгээний нөхцөл
             </Link>
           </div>
         </div>
