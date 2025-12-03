@@ -1,179 +1,166 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react"
+import { Phone, Clock, MessageCircle, Instagram, Facebook } from "lucide-react"
 
 export default function ContactPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-  }
-
-  const contactInfo = [
+  const contactMethods = [
     {
-      icon: Mail,
-      title: "Email",
-      details: "support@vistaline.com",
-      description: "We'll respond within 24 hours",
+      icon: Facebook,
+      title: "Facebook",
+      details: "@vistaline.store",
+      description: "Messenger-ээр бичээрэй",
+      link: "https://www.facebook.com/vistaline.store",
+      buttonText: "Messenger нээх",
+      primary: true,
+    },
+    {
+      icon: Instagram,
+      title: "Instagram",
+      details: "@vistaline.store",
+      description: "DM илгээх",
+      link: "https://www.instagram.com/vistaline.store/",
+      buttonText: "Instagram нээх",
+      primary: true,
     },
     {
       icon: Phone,
-      title: "Phone",
-      details: "+1 (800) 555-VISTALINE",
-      description: "Mon-Fri 9AM-6PM EST",
+      title: "Утас",
+      details: "99XX-XXXX",
+      description: "Ажлын өдрүүдэд 10:00 - 20:00",
+      link: "tel:99XXXXXX",
+      buttonText: "Залгах",
+      primary: false,
     },
-    {
-      icon: MapPin,
-      title: "Address",
-      details: "123 Fashion Ave, New York, NY 10001",
-      description: "Visit our flagship store",
-    },
-    {
-      icon: Clock,
-      title: "Business Hours",
-      details: "Mon - Fri: 9AM - 6PM EST",
-      description: "Sat: 10AM - 4PM EST",
-    },
+  ]
+
+  const businessHours = [
+    { day: "Даваа - Баасан", hours: "10:00 - 20:00" },
+    { day: "Бямба", hours: "11:00 - 18:00" },
+    { day: "Ням", hours: "Амарна" },
   ]
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="py-12 lg:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <nav className="text-sm text-muted-foreground mb-8">
             <Link href="/" className="hover:text-foreground">
-              Home
+              Нүүр
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Contact</span>
+            <span className="text-foreground">Холбоо барих</span>
           </nav>
 
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-foreground mb-4">Get in Touch</h1>
+            <h1 className="text-4xl font-bold text-foreground mb-4">Холбоо барих</h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Have a question or feedback? We are here to help. Fill out the form below or reach out through any of our
-              contact channels.
+              Асуух зүйл байвал бидэнтэй холбогдоорой. Бид таны асуултад аль болох хурдан хариулахыг хичээнэ.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Contact Info */}
-            <div className="lg:col-span-1">
-              <div className="space-y-6">
-                {contactInfo.map((info) => (
-                  <div key={info.title} className="flex gap-4 p-4 rounded-xl bg-card border border-border">
-                    <div className="shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <info.icon className="h-6 w-6 text-primary" />
+          {/* Primary Contact - Social Media */}
+          <div className="mb-12">
+            <h2 className="text-lg font-semibold text-foreground mb-6 text-center">
+              Бидэнтэй холбогдох хамгийн хурдан арга
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {contactMethods
+                .filter((method) => method.primary)
+                .map((method) => (
+                  <a
+                    key={method.title}
+                    href={method.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-8 rounded-2xl bg-card border border-border hover:border-primary hover:shadow-lg transition-all"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                      <method.icon className="h-8 w-8 text-primary" />
                     </div>
-                    <div>
-                      <h3 className="font-medium text-foreground">{info.title}</h3>
-                      <p className="text-foreground">{info.details}</p>
-                      <p className="text-sm text-muted-foreground">{info.description}</p>
-                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-1">{method.title}</h3>
+                    <p className="text-primary font-medium mb-1">{method.details}</p>
+                    <p className="text-sm text-muted-foreground mb-4">{method.description}</p>
+                    <Button className="w-full">{method.buttonText}</Button>
+                  </a>
+                ))}
+            </div>
+          </div>
+
+          {/* Secondary Contact - Phone */}
+          <div className="mb-12">
+            <div className="p-6 rounded-xl bg-muted/50 border border-border">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Phone className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-foreground">Утсаар холбогдох</h3>
+                    <p className="text-lg font-semibold text-primary">7233-1452</p>
+                  </div>
+                </div>
+                <a href="tel:72331452">
+                  <Button variant="outline">Залгах</Button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Business Hours */}
+          <div className="mb-12">
+            <div className="p-6 rounded-xl bg-card border border-border">
+              <div className="flex items-center gap-3 mb-4">
+                <Clock className="h-5 w-5 text-primary" />
+                <h3 className="font-semibold text-foreground">Ажлын цаг</h3>
+              </div>
+              <div className="space-y-2">
+                {businessHours.map((item) => (
+                  <div key={item.day} className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">{item.day}</span>
+                    <span className="text-foreground font-medium">{item.hours}</span>
                   </div>
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-4 pt-4 border-t border-border">
+                * Сошиал хаягаар 24/7 мессеж илгээх боломжтой. Бид ажлын цагаар хариу өгнө.
+              </p>
             </div>
+          </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-card rounded-2xl border border-border p-6 lg:p-8">
-                {isSubmitted ? (
-                  <div className="text-center py-12">
-                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-accent/10 flex items-center justify-center">
-                      <CheckCircle className="h-8 w-8 text-accent" />
-                    </div>
-                    <h2 className="text-2xl font-bold text-foreground mb-2">Message Sent!</h2>
-                    <p className="text-muted-foreground mb-6">
-                      Thank you for reaching out. We will get back to you within 24 hours.
-                    </p>
-                    <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input id="firstName" placeholder="John" required />
-                      </div>
-                      <div>
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input id="lastName" placeholder="Doe" required />
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="john@example.com" required />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="subject">Subject</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a subject" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="order">Order Inquiry</SelectItem>
-                          <SelectItem value="product">Product Question</SelectItem>
-                          <SelectItem value="shipping">Shipping & Delivery</SelectItem>
-                          <SelectItem value="returns">Returns & Exchanges</SelectItem>
-                          <SelectItem value="feedback">Feedback</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="orderNumber">Order Number (optional)</Label>
-                      <Input id="orderNumber" placeholder="VISTALINE-XXXXXX" />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea id="message" placeholder="How can we help you?" rows={5} required />
-                    </div>
-
-                    <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting}>
-                      {isSubmitting ? (
-                        "Sending..."
-                      ) : (
-                        <>
-                          <Send className="h-4 w-4" />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                )}
+          {/* Common Questions */}
+          <div className="mb-12">
+            <h2 className="text-lg font-semibold text-foreground mb-4">Түгээмэл асуултууд</h2>
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg bg-muted/30">
+                <p className="font-medium text-foreground mb-1">Захиалга хэзээ ирэх вэ?</p>
+                <p className="text-sm text-muted-foreground">УБ хотод 12-24 цагийн дотор хүргэнэ.</p>
+              </div>
+              <div className="p-4 rounded-lg bg-muted/30">
+                <p className="font-medium text-foreground mb-1">Шалгаад төлж болох уу?</p>
+                <p className="text-sm text-muted-foreground">Тийм. УБ-д бараагаа хүлээж аваад шалгасны дараа төлөх боломжтой.</p>
+              </div>
+              <div className="p-4 rounded-lg bg-muted/30">
+                <p className="font-medium text-foreground mb-1">Буцаах боломжтой юу?</p>
+                <p className="text-sm text-muted-foreground">2 хоногийн дотор, ашиглаагүй бол буцаах боломжтой.</p>
               </div>
             </div>
           </div>
 
           {/* FAQ CTA */}
-          <div className="mt-16 text-center p-8 rounded-2xl bg-muted/50">
-            <h2 className="text-xl font-semibold text-foreground mb-2">Looking for quick answers?</h2>
+          <div className="text-center p-8 rounded-2xl bg-muted/50">
+            <MessageCircle className="h-10 w-10 text-primary mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-foreground mb-2">Илүү дэлгэрэнгүй мэдээлэл хэрэгтэй юу?</h2>
             <p className="text-muted-foreground mb-4">
-              Check out our FAQ for answers to common questions about shipping, returns, sizing, and more.
+              Түгээмэл асуултын хуудаснаас хүргэлт, буцаалт, бүтээгдэхүүний талаар дэлгэрэнгүй мэдээлэл аваарай.
             </p>
             <Link href="/faq">
-              <Button variant="outline">Visit FAQ</Button>
+              <Button variant="outline">Түгээмэл асуултууд</Button>
             </Link>
           </div>
         </div>

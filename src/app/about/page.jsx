@@ -3,42 +3,42 @@ import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { Heart, Leaf, Award, Users, ArrowRight } from "lucide-react"
+import { Truck, ShieldCheck, RefreshCw, HeartHandshake, ArrowRight } from "lucide-react"
 
 export const metadata = {
-  title: "About Us | Vistaline",
-  description: "Learn about Vistaline - our story, values, and commitment to quality craftsmanship.",
+  title: "Бидний тухай | Vistaline",
+  description: "Vistaline - Тав тухтай амьдралын бүтээгдэхүүн. Бидний түүх, үнэт зүйлс, чанарын баталгааны тухай.",
 }
 
 export default function AboutPage() {
   const values = [
     {
-      icon: Heart,
-      title: "Craftsmanship",
-      description: "Every piece is meticulously crafted by skilled artisans who take pride in their work.",
+      icon: Truck,
+      title: "Хурдан хүргэлт",
+      description: "УБ хотод 12-24 цагийн дотор хүргэнэ. Аймагт жолоочоор дамжуулан хүргэнэ.",
     },
     {
-      icon: Leaf,
-      title: "Sustainability",
-      description: "We're committed to responsible sourcing and environmentally conscious production.",
+      icon: ShieldCheck,
+      title: "Шалгаад төлөх",
+      description: "Бараагаа хүлээж аваад, шалгаад, сэтгэл хангалуун бол төлнө.",
     },
     {
-      icon: Award,
-      title: "Quality",
-      description: "Only the finest materials make it into our collections - no compromises.",
+      icon: RefreshCw,
+      title: "Буцаалтын баталгаа",
+      description: "2 хоногийн дотор ямар ч асуултгүй буцаах боломжтой.",
     },
     {
-      icon: Users,
-      title: "Community",
-      description: "We build lasting relationships with our customers, artisans, and partners.",
+      icon: HeartHandshake,
+      title: "Үйлчлүүлэгчийн сэтгэл ханамж",
+      description: "Таны сэтгэл ханамж бидний хамгийн чухал зорилго.",
     },
   ]
 
   const stats = [
-    { value: "10+", label: "Years of Excellence" },
-    { value: "50K+", label: "Happy Customers" },
-    { value: "100%", label: "Sustainable Materials" },
-    { value: "30", label: "Countries Shipped" },
+    { value: "12-24", label: "Цагт хүргэнэ" },
+    { value: "1 жил", label: "Баталгаат хугацаа" },
+    { value: "2 хоног", label: "Буцаалтын хугацаа" },
+    { value: "24/7", label: "Онлайн захиалга" },
   ]
 
   return (
@@ -49,8 +49,8 @@ export default function AboutPage() {
         <section className="relative h-[60vh] min-h-[400px] flex items-center">
           <div className="absolute inset-0">
             <Image
-              src="/placeholder.svg?height=800&width=1920"
-              alt="Vistaline workshop"
+              src="/homepage/hero1.png"
+              alt="Vistaline"
               fill
               className="object-cover"
               priority
@@ -60,17 +60,16 @@ export default function AboutPage() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="text-sm text-white/70 mb-4">
               <Link href="/" className="hover:text-white">
-                Home
+                Нүүр
               </Link>
               <span className="mx-2">/</span>
-              <span className="text-white">About</span>
+              <span className="text-white">Бидний тухай</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 max-w-2xl text-balance">
-              Crafting Timeless Elegance Since 2015
+              Тав тухтай амьдралын бүтээгдэхүүн
             </h1>
             <p className="text-white/80 text-lg max-w-xl">
-              We believe that great fashion starts with exceptional craftsmanship and a commitment to quality that never
-              wavers.
+              Бид таны гэр, оффисыг илүү тав тухтай болгох чанартай бүтээгдэхүүн санал болгодог.
             </p>
           </div>
         </section>
@@ -80,26 +79,25 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <span className="text-sm font-medium text-primary uppercase tracking-wide">Our Story</span>
-                <h2 className="mt-2 text-3xl font-bold text-foreground mb-6">Born from a Passion for Quality</h2>
+                <span className="text-sm font-medium text-primary uppercase tracking-wide">Бидний түүх</span>
+                <h2 className="mt-2 text-3xl font-bold text-foreground mb-6">Яагаад Vistaline?</h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
                   <p>
-                    Vistaline was founded in 2015 with a simple mission: to create timeless fashion pieces that combine
-                    exceptional quality with contemporary design. What started as a small workshop in New York has grown
-                    into a globally recognized brand.
+                    Монголын өвөл хуурай. Халаалт асаахад агаар улам хуурайшиж, арьс хатна, хамар битүүрнэ, 
+                    нойр муудна. Бид энэ асуудлыг шийдэх зорилгоор Vistaline-ийг үүсгэн байгууллаа.
                   </p>
                   <p>
-                    Our founders, inspired by their travels through Italy and their encounters with master craftsmen,
-                    set out to bridge the gap between traditional artisanship and modern fashion needs.
+                    Бид зөвхөн чанартай, өвөрмөц дизайнтай бүтээгдэхүүн сонгон авч ирдэг. Үйлдвэрээс 
+                    шууд авсан бараа тул дундын зуучлагчгүй, хямд үнээр санал болгох боломжтой.
                   </p>
                   <p>
-                    Today, we continue to work with the same family-owned mills and workshops that inspired our journey,
-                    ensuring every piece meets our exacting standards.
+                    Манай зорилго бол таны гэр бүлд эрүүл, тав тухтай орчин бүрдүүлэхэд тусалж, 
+                    худалдан авалтыг аль болох хялбар, найдвартай болгох явдал юм.
                   </p>
                 </div>
               </div>
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-                <Image src="/placeholder.svg?height=800&width=640" alt="Vistaline founder" fill className="object-cover" />
+                <Image src="/homepage/hero3.jpeg" alt="Vistaline бүтээгдэхүүн" fill className="object-cover" />
               </div>
             </div>
           </div>
@@ -109,8 +107,8 @@ export default function AboutPage() {
         <section className="py-20 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <span className="text-sm font-medium text-primary uppercase tracking-wide">Our Values</span>
-              <h2 className="mt-2 text-3xl font-bold text-foreground">What Drives Us</h2>
+              <span className="text-sm font-medium text-primary uppercase tracking-wide">Бидний давуу тал</span>
+              <h2 className="mt-2 text-3xl font-bold text-foreground">Яагаад биднээс авах вэ?</h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((value) => (
@@ -140,35 +138,34 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Materials */}
+        {/* Quality Promise */}
         <section className="py-20 bg-foreground text-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="relative aspect-square rounded-2xl overflow-hidden">
                 <Image
-                  src="/placeholder.svg?height=600&width=600"
-                  alt="Premium materials"
+                  src="/homepage/cta.png"
+                  alt="Чанартай бүтээгдэхүүн"
                   fill
                   className="object-cover"
                 />
               </div>
               <div>
-                <span className="text-sm font-medium text-primary uppercase tracking-wide">Materials</span>
-                <h2 className="mt-2 text-3xl font-bold text-background mb-6">Only the Finest</h2>
+                <span className="text-sm font-medium text-primary uppercase tracking-wide">Чанарын баталгаа</span>
+                <h2 className="mt-2 text-3xl font-bold text-background mb-6">1 жилийн баталгаа</h2>
                 <div className="space-y-4 text-background/80 leading-relaxed">
                   <p>
-                    We source our materials from the worlds most renowned producers. Our Italian merino wool comes from
-                    family-owned mills in Biella, our cashmere from ethical farms in Mongolia, and our cotton from
-                    sustainable fields in Egypt.
+                    Бид зарж буй бүх бүтээгдэхүүндээ 1 жилийн баталгаа олгодог. Үйлдвэрийн гэмтэл 
+                    илэрвэл үнэгүй засах эсвэл шинээр солиж өгнө.
                   </p>
                   <p>
-                    Every material is tested for quality, durability, and sustainability before it becomes part of our
-                    collection.
+                    Таны сэтгэл ханамж бидний хамгийн чухал зорилго. Тиймээс бараагаа хүлээж аваад 
+                    шалгах боломж олгодог — сэтгэл хангалуун бол төлнө.
                   </p>
                 </div>
-                <Link href="/collections">
+                <Link href="/">
                   <Button variant="secondary" className="mt-8 gap-2">
-                    Explore Our Collection
+                    Бүтээгдэхүүн үзэх
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
@@ -180,18 +177,18 @@ export default function AboutPage() {
         {/* CTA */}
         <section className="py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Have Questions?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Асуух зүйл байна уу?</h2>
             <p className="text-muted-foreground mb-8">
-              We would love to hear from you. Our team is always ready to help with any questions about our products,
-              shipping, or anything else.
+              Бидэнтэй холбогдоорой. Бүтээгдэхүүн, хүргэлт, төлбөрийн талаар ямар ч асуултад 
+              хариулахад бэлэн байна.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
-                <Button size="lg">Contact Us</Button>
+                <Button size="lg">Холбоо барих</Button>
               </Link>
               <Link href="/faq">
                 <Button size="lg" variant="outline">
-                  View FAQ
+                  Түгээмэл асуултууд
                 </Button>
               </Link>
             </div>

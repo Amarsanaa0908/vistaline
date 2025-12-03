@@ -34,12 +34,12 @@ export default function CartPage() {
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
                 <ShoppingBag className="h-10 w-10 text-muted-foreground" />
               </div>
-              <h1 className="text-2xl font-bold text-foreground mb-4">Your Cart is Empty</h1>
+              <h1 className="text-2xl font-bold text-foreground mb-4">Хоосон байна</h1>
               <p className="text-muted-foreground mb-8">
                 Looks like you have not added anything to your cart yet. Start shopping to fill it up!
               </p>
               <Link href="/collections">
-                <Button size="lg">Start Shopping</Button>
+                <Button size="lg">Дэлгүүр үзэх</Button>
               </Link>
             </div>
 
@@ -67,14 +67,14 @@ export default function CartPage() {
           {/* Breadcrumb */}
           <nav className="text-sm text-muted-foreground mb-8">
             <Link href="/" className="hover:text-foreground">
-              Home
+              Нүүр
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Shopping Cart</span>
+            <span className="text-foreground">Сагс</span>
           </nav>
 
           <h1 className="text-3xl font-bold text-foreground mb-8">
-            Shopping Cart ({cartCount} {cartCount === 1 ? "item" : "items"})
+            Сагс ({cartCount} {cartCount === 1 ? "item" : "items"})
           </h1>
 
           {/* Free Shipping Progress */}

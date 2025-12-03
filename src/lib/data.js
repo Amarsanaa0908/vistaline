@@ -226,7 +226,7 @@ export const products = [
     price: 89500,
     originalPrice: null,
     description:
-      "Handcrafted full-grain leather wallet with RFID protection. Slim profile fits comfortably in any pocket.",
+      "Rain Forest Humidifier таны гэрийн агаарыг зөөлөн чийглүүлж, амьсгалахад хялбар болгоно. Ультрасоник технологи нь усыг нарийн манан болгон тарааж, өрөөний агаарыг байгалийн ойн адил сэргээнэ. Өвөрмөц мөөгөн дизайн, борооны дусал эффект нь харахад тайвшруулна. 7 өнгийн LED гэрэл нь шөнийн гэрэл болж, хүүхдийн өрөөнд төгс тохирно.",
     rating: 4.7,
     reviews: 234,
     category: "accessories",
@@ -236,7 +236,7 @@ export const products = [
     images: ["/homepage/feature1.png", "/homepage/feature2.png", "/homepage/feature3.png"],
     colors: [], // empty - no color variants
     sizes: [], // empty - no size variants
-    features: ["Full-grain leather", "RFID protection", "6 card slots", "Bill compartment"],
+    features: ["280мл, 4 цаг ажиллана", "7 өнгө", "Удирдлагатай", "Автоматаар унтрана"],
     badge: "Шинэ",
   },
 ]
