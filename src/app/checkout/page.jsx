@@ -13,13 +13,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Lock, CreditCard, Truck, Shield, ChevronLeft, Check } from "lucide-react"
 import { useCart } from "@/context/cart-context"
+import { QRCodeCanvas } from "qrcode.react"
 
 export default function CheckoutPage() {
   const router = useRouter()
   const { cartItems, cartTotal, clearCart, cartCount } = useCart()
   const [step, setStep] = useState(1)
   const [shippingMethod, setShippingMethod] = useState("standard")
-  const [paymentMethod, setPaymentMethod] = useState("card")
   const [isProcessing, setIsProcessing] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -40,9 +40,9 @@ export default function CheckoutPage() {
     cardName: "",
   })
 
-  const shippingCost = shippingMethod === "express" ? 14.99 : cartTotal >= 100 ? 0 : 9.99
-  const tax = cartTotal * 0.08
-  const total = cartTotal + shippingCost + tax
+  const shippingCost = shippingMethod === "express" ? 20000 : shippingMethod === "inspect"? 8000 : cartTotal >= 100 ? 0 : 8000
+  const tax = cartTotal * 0.0
+  const total = shippingMethod === "inspect" ? 8000 : cartTotal + shippingCost + tax
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -57,6 +57,8 @@ export default function CheckoutPage() {
 
     // Generate order ID
     const orderId = `Vistaline-${Date.now().toString(36).toUpperCase()}`
+
+    console.log(formData)
 
     clearCart()
     router.push(`/order-confirmation?order=${orderId}`)
@@ -89,7 +91,7 @@ export default function CheckoutPage() {
             </Link>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Lock className="h-4 w-4" />
-              Secure Checkout
+              Найдвартай систем
             </div>
           </div>
         </div>
@@ -136,7 +138,7 @@ export default function CheckoutPage() {
                 {step === 1 && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-lg font-semibold text-foreground mb-4">Contact Information</h2>
+                      <h2 className="text-lg font-semibold text-foreground mb-4">Хэрэглэгчийн мэдээлэл</h2>
                       <div className="space-y-4">
                         <div>
                           <Label htmlFor="email">Имэйл</Label>
@@ -150,12 +152,6 @@ export default function CheckoutPage() {
                             required
                           />
                         </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h2 className="text-lg font-semibold text-foreground mb-4">Shipping Address</h2>
-                      <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <Label htmlFor="firstName">Нэр</Label>
@@ -178,17 +174,23 @@ export default function CheckoutPage() {
                             />
                           </div>
                         </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h2 className="text-lg font-semibold text-foreground mb-4">Хүргүүлэх мэдээлэл</h2>
+                      <div className="space-y-4">
+                        
                         <div>
-                          <Label htmlFor="address">Хаяг</Label>
-                          <Input
-                            id="address"
-                            name="address"
-                            placeholder="Дэлгэрэнгүй хаяг"
-                            value={formData.address}
-                            onChange={handleInputChange}
-                            required
-                          />
-                        </div>
+                            <Label htmlFor="state">Хот, аймаг</Label>
+                            <Input
+                              id="state"
+                              name="state"
+                              value={formData.state}
+                              onChange={handleInputChange}
+                              required
+                            />
+                          </div>
                         {/* <div>
                           <Label htmlFor="apartment">Apartment, suite, etc. (optional)</Label>
                           <Input
@@ -204,15 +206,17 @@ export default function CheckoutPage() {
                             <Input id="city" name="city" value={formData.city} onChange={handleInputChange} required />
                           </div> */}
                           <div>
-                            <Label htmlFor="state">Хот, аймаг</Label>
-                            <Input
-                              id="state"
-                              name="state"
-                              value={formData.state}
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
+                          <Label htmlFor="address">Хаяг</Label>
+                          <Input
+                            id="address"
+                            name="address"
+                            placeholder="Дэлгэрэнгүй хаяг"
+                            value={formData.address}
+                            onChange={handleInputChange}
+                            required
+                          />
+                          
+                        </div>
                           {/* <div>
                             <Label htmlFor="zip">ZIP Code</Label>
                             <Input id="zip" name="zip" value={formData.zip} onChange={handleInputChange} required />
@@ -228,7 +232,7 @@ export default function CheckoutPage() {
                             onChange={handleInputChange}
                           />
                         </div>
-                        <div className="flex items-center gap-2">
+                        {/* <div className="flex items-center gap-2">
                           <Checkbox
                             id="saveInfo"
                             checked={formData.saveInfo}
@@ -237,7 +241,7 @@ export default function CheckoutPage() {
                           <Label htmlFor="saveInfo" className="text-sm text-muted-foreground">
                             Save this information for next time
                           </Label>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
 
@@ -251,7 +255,7 @@ export default function CheckoutPage() {
                 {step === 2 && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-lg font-semibold text-foreground mb-4">Shipping Method</h2>
+                      <h2 className="text-lg font-semibold text-foreground mb-4">Хүргэлт</h2>
                       <RadioGroup value={shippingMethod} onValueChange={setShippingMethod} className="space-y-3">
                         <label
                           className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-colors ${
@@ -263,11 +267,27 @@ export default function CheckoutPage() {
                           <div className="flex items-center gap-4">
                             <RadioGroupItem value="standard" id="standard" />
                             <div>
-                              <p className="font-medium text-foreground">Standard Shipping</p>
-                              <p className="text-sm text-muted-foreground">5-7 business days</p>
+                              <p className="font-medium text-foreground">Энгийн хүргэлт</p>
+                              <p className="text-sm text-muted-foreground">12-36 цагийн дотор</p>
                             </div>
                           </div>
-                          <span className="font-medium text-foreground">{cartTotal >= 100 ? "FREE" : "$9.99"}</span>
+                          <span className="font-medium text-foreground">{cartTotal >= 100 ? "ҮНЭГҮЙ" : "8000₮"}</span>
+                        </label>
+                        <label
+                          className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-colors ${
+                            shippingMethod === "inspect"
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-muted-foreground"
+                          }`}
+                        >
+                          <div className="flex items-center gap-4">
+                            <RadioGroupItem value="inspect" id="inspect" />
+                            <div>
+                              <p className="font-medium text-foreground">Үзээд авах</p>
+                              <p className="text-sm text-muted-foreground">Хүргэлтийн үнэ төлөөд та хүргүүлээд сонгож аваад төлбөр төлөх</p>
+                            </div>
+                          </div>
+                          <span className="font-medium text-foreground">8,000.00₮</span>
                         </label>
                         <label
                           className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-colors ${
@@ -279,11 +299,11 @@ export default function CheckoutPage() {
                           <div className="flex items-center gap-4">
                             <RadioGroupItem value="express" id="express" />
                             <div>
-                              <p className="font-medium text-foreground">Express Shipping</p>
-                              <p className="text-sm text-muted-foreground">2-3 business days</p>
+                              <p className="font-medium text-foreground">Шуурхай хүргэлт</p>
+                              <p className="text-sm text-muted-foreground">4-6 цагийн дотор</p>
                             </div>
                           </div>
-                          <span className="font-medium text-foreground">$14.99</span>
+                          <span className="font-medium text-foreground">20,000.00 ₮</span>
                         </label>
                       </RadioGroup>
                     </div>
@@ -307,6 +327,36 @@ export default function CheckoutPage() {
                 {/* Step 3: Payment */}
                 {step === 3 && (
                   <div className="space-y-6">
+                    <div className="mx-auto">
+                      <h2 className="text-lg font-semibold text-foreground mb-4">Төлбөр төлөх</h2>
+                      <div className="mb-4">
+                  <div className="flex justify-center items-center">
+                    <div className="w-full max-w-[200px] sm:max-w-[256px]">
+                      <QRCodeCanvas value={"П" || ""} size={200} className="w-full h-auto" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2 mb-4">
+                  <div className="text-sm font-medium text-gray-900">QR уншуулж төлнө үү</div>
+                  <div className="text-xs text-gray-500">Банкны аппликейшн ашиглаж төлөх</div>
+                </div>
+
+                <div>
+                  <ul className="sm:hidden flex justify-center flex-wrap gap-5">
+                    {/* {data &&
+                      data?.links.map((el, i) => {
+                        return (
+                          <li key={i}>
+                            <a href={el.link}>
+                              <img alt={el.logo} width={50} height={50} src={el.logo || "/placeholder.svg"} />
+                            </a>
+                          </li>
+                        )
+                      })} */}
+                  </ul>
+                </div>
+                    </div>
                     {/* <div>
                       <h2 className="text-lg font-semibold text-foreground mb-4">Төлбөр төлөх</h2>
                       <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-3 mb-6">
@@ -419,14 +469,14 @@ export default function CheckoutPage() {
             {/* Order Summary Sidebar */}
             <div className="hidden lg:block">
               <div className="sticky top-8 p-6 rounded-xl bg-muted/30 border border-border">
-                <h2 className="text-lg font-semibold text-foreground mb-6">Order Summary</h2>
+                <h2 className="text-lg font-semibold text-foreground mb-6">Захиалгын хураангуй</h2>
 
                 <div className="space-y-4 mb-6">
                   {cartItems.map((item) => (
                     <div key={`${item.id}-${item.selectedColor?.name}-${item.selectedSize}`} className="flex gap-4">
                       <div className="relative w-16 h-20 rounded-lg overflow-hidden bg-muted">
                         <Image
-                          src={item.selectedColor?.image || "/placeholder.svg"}
+                          src={item?.image || "/placeholder.svg"}
                           alt={item.name}
                           fill
                           className="object-cover"
@@ -441,7 +491,7 @@ export default function CheckoutPage() {
                           {item.selectedColor?.name} / {item.selectedSize}
                         </p>
                         <p className="text-sm font-medium text-foreground mt-1">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          {(item.price * item.quantity).toFixed(2)}₮
                         </p>
                       </div>
                     </div>
@@ -450,33 +500,34 @@ export default function CheckoutPage() {
 
                 <div className="space-y-3 pt-4 border-t border-border">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span className="text-foreground">${cartTotal.toFixed(2)}</span>
+                    <span className="text-muted-foreground">Дүн</span>
+                    <span className="text-foreground">{cartTotal.toFixed(2)}₮</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Shipping</span>
+                    <span className="text-muted-foreground">Хүргэлт</span>
                     <span className={shippingCost === 0 ? "text-accent" : "text-foreground"}>
-                      {shippingCost === 0 ? "FREE" : `$${shippingCost.toFixed(2)}`}
+                      {shippingCost === 0 ? "ҮНЭГҮЙ" : `${shippingCost.toFixed(2)}₮`}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  {/* <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Tax</span>
                     <span className="text-foreground">${tax.toFixed(2)}</span>
-                  </div>
+                  </div> */}
                   <div className="flex justify-between pt-3 border-t border-border">
-                    <span className="font-semibold text-foreground">Total</span>
-                    <span className="text-xl font-bold text-foreground">${total.toFixed(2)}</span>
+                    <span className="font-semibold text-foreground">Нийт</span>
+                    <span className="text-xl font-bold text-foreground">{total.toFixed(2)}₮</span>
                   </div>
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-border space-y-3">
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <Truck className="h-4 w-4 text-primary" />
-                    {cartTotal >= 100 ? "Free shipping on this order" : "Free shipping on orders $100+"}
+                    Найдвартай хүргэлт
+                    {/* {cartTotal >= 100000 ? "Free shipping on this order" : "Free shipping on orders $100+"} */}
                   </div>
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <Shield className="h-4 w-4 text-primary" />
-                    30-day hassle-free returns
+                    2 өдрийн дотор буцаах боломжтой
                   </div>
                 </div>
               </div>

@@ -50,22 +50,22 @@ export default function CartPage() {
               </div>
               <h1 className="text-2xl font-bold text-foreground mb-4">Хоосон байна</h1>
               <p className="text-muted-foreground mb-8">
-                Looks like you have not added anything to your cart yet. Start shopping to fill it up!
+                Таны сагс хоосон байна, та манай дэлгүүрийг үзээд таалагдсан бүтээгдэхүүнээ сагсандаа хийгээрэй!
               </p>
-              <Link href="/collections">
+              <Link href="/">
                 <Button size="lg">Дэлгүүр үзэх</Button>
               </Link>
             </div>
 
             {/* Suggestions */}
-            <div className="mt-20">
-              <h2 className="text-xl font-semibold text-foreground mb-8">Popular Items</h2>
+            {/* <div className="mt-20">
+              <h2 className="text-xl font-semibold text-foreground mb-8">Трэнд бүтээгдэхүүн</h2>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {products.slice(0, 4).map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </main>
         <Footer />
@@ -121,7 +121,7 @@ export default function CartPage() {
                   >
                     <div className="relative w-24 h-32 rounded-lg overflow-hidden bg-muted shrink-0">
                       <Image
-                        src={item.selectedColor?.image || "/placeholder.svg"}
+                        src={item?.image || "/placeholder.svg"}
                         alt={item.name}
                         fill
                         className="object-cover"
@@ -141,7 +141,7 @@ export default function CartPage() {
                           </p>
                         </div>
                         <button
-                          onClick={() => removeFromCart(item.id, item.selectedColor.name, item.selectedSize)}
+                          onClick={() => removeFromCart(item.id, item.selectedColor?.name, item.selectedSize)}
                           className="p-1 hover:bg-muted rounded transition-colors"
                         >
                           <X className="h-5 w-5 text-muted-foreground" />
@@ -151,7 +151,7 @@ export default function CartPage() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() =>
-                              updateQuantity(item.id, item.selectedColor.name, item.selectedSize, item.quantity - 1)
+                              updateQuantity(item.id, item.selectedColor?.name, item.selectedSize, item.quantity - 1)
                             }
                             className="p-1 rounded border border-border hover:bg-muted transition-colors"
                           >
@@ -160,7 +160,7 @@ export default function CartPage() {
                           <span className="w-10 text-center font-medium">{item.quantity}</span>
                           <button
                             onClick={() =>
-                              updateQuantity(item.id, item.selectedColor.name, item.selectedSize, item.quantity + 1)
+                              updateQuantity(item.id, item.selectedColor?.name, item.selectedSize, item.quantity + 1)
                             }
                             className="p-1 rounded border border-border hover:bg-muted transition-colors"
                           >

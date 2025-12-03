@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/context/cart-context"
 
-const BUNDLE_DISCOUNT_PERCENT = 15
+const BUNDLE_DISCOUNT_PERCENT = 50
 
 export default function UpsellModal({ open, onClose, products, mainProduct, selectedColor }) {
   const [selectedUpsells, setSelectedUpsells] = useState([])
@@ -57,8 +57,8 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
               <Check className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-foreground">Added to Cart!</h2>
-              <p className="text-sm text-muted-foreground">Complete your look</p>
+              <h2 className="text-lg font-semibold text-foreground">Таньд санал болгоё!</h2>
+              <p className="text-sm text-muted-foreground"></p>
             </div>
           </div>
           <button onClick={onClose} className="p-2 rounded-full hover:bg-muted transition-colors">
@@ -69,7 +69,7 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
         <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 px-6 py-3 flex items-center justify-center gap-2 border-b border-border">
           <Sparkles className="h-4 w-4 text-primary" />
           <span className="text-sm font-semibold text-primary">
-            Bundle & Save {BUNDLE_DISCOUNT_PERCENT}% on add-ons!
+            Хамтад нь аваад {BUNDLE_DISCOUNT_PERCENT}% хямдруулаарай!
           </span>
           <Sparkles className="h-4 w-4 text-primary" />
         </div>
@@ -79,7 +79,7 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
           <div className="flex gap-4">
             <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted">
               <Image
-                src={selectedColor?.image || "/placeholder.svg"}
+                src={"/homepage/feature3.png" || "/placeholder.svg"}
                 alt={mainProduct.name}
                 fill
                 className="object-cover"
@@ -88,7 +88,7 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
             <div className="flex-1">
               <h3 className="font-medium text-foreground">{mainProduct.name}</h3>
               <p className="text-sm text-muted-foreground">{selectedColor?.name}</p>
-              <p className="mt-1 font-semibold text-foreground">${mainProduct.price}</p>
+              <p className="mt-1 font-semibold text-foreground">{mainProduct.price.toLocaleString()}₮</p>
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
         {/* Upsell Products */}
         <div className="p-6">
           <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-4">
-            Frequently Bought Together
+            Ихэвчлэн хамтад нь авдаг
           </h3>
           <div className="space-y-3">
             {products.map((product) => {
@@ -123,7 +123,7 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
                     <h4 className="font-medium text-foreground truncate">{product.name}</h4>
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground line-through">${product.price}</span>
-                      <span className="text-sm font-bold text-primary">${discountedPrice}</span>
+                      <span className="text-sm font-bold text-primary">{discountedPrice}₮</span>
                     </div>
                   </div>
                   <div
@@ -150,9 +150,9 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
             <div className="mb-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Percent className="h-4 w-4 text-green-600" />
-                <span className="text-sm font-medium text-green-700">Bundle Savings</span>
+                <span className="text-sm font-medium text-green-700">Хямдруулалт</span>
               </div>
-              <span className="text-sm font-bold text-green-600">-${totalSavings.toFixed(2)}</span>
+              <span className="text-sm font-bold text-green-600">-{totalSavings.toFixed(2)}₮</span>
             </div>
           )}
 
@@ -161,20 +161,20 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
             <div className="text-right">
               {selectedUpsells.length > 0 && (
                 <span className="text-sm text-muted-foreground line-through mr-2">
-                  ${(mainProduct.price + upsellOriginalTotal).toFixed(2)}
+                  {(mainProduct.price + upsellOriginalTotal).toFixed(2)}₮
                 </span>
               )}
-              <span className="text-2xl font-bold text-foreground">${grandTotal.toFixed(2)}</span>
+              <span className="text-2xl font-bold text-foreground">{grandTotal.toFixed(2)}₮</span>
             </div>
           </div>
           <div className="flex gap-3">
             <Button variant="outline" className="flex-1 bg-transparent" onClick={onClose}>
-              Continue Shopping
+              Цааш үзэх
             </Button>
-            <Link href="/cart" className="flex-1">
+            <Link href="/checkout" className="flex-1">
               <Button className="w-full gap-2" onClick={handleAddUpsells}>
                 <ShoppingBag className="h-4 w-4" />
-                View Cart
+                Худалдаж авах
               </Button>
             </Link>
           </div>

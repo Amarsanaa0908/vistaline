@@ -39,15 +39,15 @@ const upsellProducts = [
   {
     id: 101,
     name: "Cashmere Scarf",
-    price: 79,
+    price: 10000,
     image: "/luxury-cashmere-scarf.jpg",
   },
-  {
-    id: 102,
-    name: "Leather Belt",
-    price: 59,
-    image: "/premium-leather-belt.png",
-  },
+  // {
+  //   id: 102,
+  //   name: "Leather Belt",
+  //   price: 59,
+  //   image: "/premium-leather-belt.png",
+  // },
 ]
 
 export default function ProductPage() {

@@ -59,7 +59,7 @@ const addingRef = useRef(false)
 
   const removeFromCart = (id, colorName, size) => {
     setCartItems((prev) =>
-      prev.filter((item) => !(item.id === id && item.selectedColor.name === colorName && item.selectedSize === size)),
+      prev.filter((item) => !(item.id === id && item.selectedColor?.name === colorName && item.selectedSize === size)),
     )
   }
 
@@ -70,7 +70,7 @@ const addingRef = useRef(false)
     }
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id && item.selectedColor.name === colorName && item.selectedSize === size
+        item.id === id && item.selectedColor?.name === colorName && item.selectedSize === size
           ? { ...item, quantity }
           : item,
       ),

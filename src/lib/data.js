@@ -132,8 +132,8 @@ export const products = [
   },
   {
     id: "cashmere-scarf",
-    name: "Luxury Cashmere Scarf",
-    price: 79,
+    name: "Амин тос",
+    price: 10000,
     originalPrice: null,
     description: "Ultra-soft cashmere scarf that adds elegance to any outfit. Lightweight yet incredibly warm.",
     rating: 4.8,
@@ -141,10 +141,10 @@ export const products = [
     category: "accessories",
     collection: "accessories",
     colors: [
-      { name: "Grey", value: "#808080", image: "/luxury-cashmere-scarf.jpg" },
-      { name: "Camel", value: "#c19a6b", image: "/camel-cashmere-scarf.jpg" },
+      { name: "", value: "#808080", image: "/oil.jpeg" },
+      // { name: "Camel", value: "#c19a6b", image: "/camel-cashmere-scarf.jpg" },
     ],
-    sizes: ["One Size"],
+    sizes: [""],
     features: ["100% Cashmere", "Lightweight", "Incredibly soft"],
     badge: null,
   },
@@ -223,7 +223,7 @@ export const products = [
   {
     id: "mushroom-diffuser",
     name: "Mushroom aroma diffuser",
-    price: 89500,
+    price: 84500,
     originalPrice: null,
     description:
       "Rain Forest Humidifier таны гэрийн агаарыг зөөлөн чийглүүлж, амьсгалахад хялбар болгоно. Ультрасоник технологи нь усыг нарийн манан болгон тарааж, өрөөний агаарыг байгалийн ойн адил сэргээнэ. Өвөрмөц мөөгөн дизайн, борооны дусал эффект нь харахад тайвшруулна. 7 өнгийн LED гэрэл нь шөнийн гэрэл болж, хүүхдийн өрөөнд төгс тохирно.",
@@ -275,8 +275,8 @@ export const collections = [
 ]
 
 export const upsellProducts = [
-  { id: "cashmere-scarf", name: "Cashmere Scarf", price: 79, image: "/luxury-cashmere-scarf.jpg" },
-  { id: "leather-belt", name: "Leather Belt", price: 59, image: "/premium-leather-belt.png" },
+  { id: "cashmere-scarf", name: "Амин тос", price: 10000, image: "/oil.jpeg" },
+  // { id: "leather-belt", name: "Leather Belt", price: 59, image: "/premium-leather-belt.png" },
 ]
 
 export const faqData = [
