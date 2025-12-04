@@ -484,7 +484,7 @@ export default function CheckoutPage() {
                       >
                         Буцах
                       </Button>
-                      <Button type="submit" className="flex-1" disabled={isProcessing}>
+                      <Button onClick={handleNext} className="flex-1" disabled={isProcessing}>
                         {isProcessing ? "Уншиж байна..." : `Төлбөр шалгах`}
                       </Button>
                     </div>
