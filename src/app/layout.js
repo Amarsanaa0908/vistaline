@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import "./globals.css"
 import { CartProvider } from "@/context/cart-context"
 import MetaPixel from "@/components/meta-pixel"
+import { Toaster } from "sonner";
 
 const geistSans = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         <CartProvider>
           {children}
           <Analytics />
+          <Toaster />
         </CartProvider>
       </body>
     </html>

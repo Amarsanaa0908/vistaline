@@ -15,6 +15,7 @@ import { Lock, CreditCard, Truck, Shield, ChevronLeft, Check } from "lucide-reac
 import { useCart } from "@/context/cart-context"
 import { QRCodeCanvas } from "qrcode.react"
 import { apiList, callPost } from "@/axios/api"
+import { toast } from "sonner"
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -74,7 +75,10 @@ export default function CheckoutPage() {
           name: formData.firstName,
           address: formData.address,
           phoneNumber: formData.phone,
+          city: formData.city,
+          delivery: shippingMethod,
         })
+        toast(response.msg[0])
         if (response.status) {
           setStep(3)
         }
