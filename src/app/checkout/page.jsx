@@ -14,6 +14,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Lock, CreditCard, Truck, Shield, ChevronLeft, Check } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { QRCodeCanvas } from "qrcode.react"
+import { apiList, callPost } from "@/axios/api"
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -62,6 +63,27 @@ export default function CheckoutPage() {
 
     clearCart()
     router.push(`/order-confirmation?order=${orderId}`)
+  }
+
+  const handleNext = async () => {
+    console.log(step)
+    if (step === 2) {
+      try {
+        const response = await callPost(`${apiList.order}`, {
+          email: formData.email,
+          name: formData.firstName,
+          address: formData.address,
+          phoneNumber: formData.phone,
+        })
+        if (response.status) {
+          setStep(3)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setStep(step+1)
+    }
   }
 
   if (cartItems.length === 0) {
@@ -152,23 +174,13 @@ export default function CheckoutPage() {
                             required
                           />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid gap-4">
                           <div>
                             <Label htmlFor="firstName">Нэр</Label>
                             <Input
                               id="firstName"
                               name="firstName"
                               value={formData.firstName}
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="lastName">Last Name</Label>
-                            <Input
-                              id="lastName"
-                              name="lastName"
-                              value={formData.lastName}
                               onChange={handleInputChange}
                               required
                             />
@@ -245,7 +257,7 @@ export default function CheckoutPage() {
                       </div>
                     </div>
 
-                    <Button type="button" size="lg" className="w-full" onClick={() => setStep(2)}>
+                    <Button type="button" size="lg" className="w-full" onClick={handleNext}>
                       Үргэлжлүүлэх
                     </Button>
                   </div>
@@ -284,7 +296,7 @@ export default function CheckoutPage() {
                             <RadioGroupItem value="inspect" id="inspect" />
                             <div>
                               <p className="font-medium text-foreground">Үзээд авах</p>
-                              <p className="text-sm text-muted-foreground">Хүргэлтийн үнэ төлөөд та хүргүүлээд сонгож аваад төлбөр төлөх</p>
+                              <p className="text-sm text-muted-foreground">Хүргэлтийн үнэ төлөөд та хүргүүлээд үзэж байгаад үлдэгдэл төлбөр төлөх</p>
                             </div>
                           </div>
                           <span className="font-medium text-foreground">8,000.00₮</span>
@@ -317,7 +329,7 @@ export default function CheckoutPage() {
                       >
                         Буцах
                       </Button>
-                      <Button type="button" className="flex-1" onClick={() => setStep(3)}>
+                      <Button type="button" className="flex-1" onClick={handleNext}>
                         Үргэлжлүүлэх
                       </Button>
                     </div>
@@ -453,7 +465,7 @@ export default function CheckoutPage() {
                         type="button"
                         variant="outline"
                         className="flex-1 bg-transparent"
-                        onClick={() => setStep(2)}
+                        onClick={handleNext}
                       >
                         Буцах
                       </Button>

@@ -15,7 +15,8 @@ const callPost = async (command, data, hideMsg = false) => {
 }
 
 const apiList = {
-    cart: "/cart"
+    cart: "/cart",
+    order: "/order",
 }
 
 export {
