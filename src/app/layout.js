@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google"
-
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css"
 import { CartProvider } from "@/context/cart-context"
 import MetaPixel from "@/components/meta-pixel"
@@ -25,7 +25,10 @@ export default function RootLayout({ children }) {
         <MetaPixel />
       </head>
       <body className={`${notoSans.variable} ${notoSans.variable} font-sans antialiased`}>
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          {children}
+          <Analytics />
+        </CartProvider>
       </body>
     </html>
   )
