@@ -23,6 +23,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(1)
   const [shippingMethod, setShippingMethod] = useState("standard")
   const [isProcessing, setIsProcessing] = useState(false)
+  const [paymentData, setPaymentData] = useState()
 
   const [formData, setFormData] = useState({
     email: "",
@@ -75,7 +76,7 @@ export default function CheckoutPage() {
           name: formData.firstName,
           address: formData.address,
           phoneNumber: formData.phone,
-          city: formData.city,
+          city: formData.state,
           delivery: shippingMethod,
         })
         toast(response.msg[0])
@@ -348,7 +349,7 @@ export default function CheckoutPage() {
                       <div className="mb-4">
                   <div className="flex justify-center items-center">
                     <div className="w-full max-w-[200px] sm:max-w-[256px]">
-                      <QRCodeCanvas value={"П" || ""} size={200} className="w-full h-auto" />
+                      <QRCodeCanvas value={paymentData?.qrCode || ""} size={200} className="w-full h-auto" />
                     </div>
                   </div>
                 </div>
@@ -360,8 +361,8 @@ export default function CheckoutPage() {
 
                 <div>
                   <ul className="sm:hidden flex justify-center flex-wrap gap-5">
-                    {/* {data &&
-                      data?.links.map((el, i) => {
+                    {paymentData &&
+                      paymentData?.links.map((el, i) => {
                         return (
                           <li key={i}>
                             <a href={el.link}>
@@ -369,7 +370,7 @@ export default function CheckoutPage() {
                             </a>
                           </li>
                         )
-                      })} */}
+                      })}
                   </ul>
                 </div>
                     </div>
