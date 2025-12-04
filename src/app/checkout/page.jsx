@@ -14,7 +14,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Lock, CreditCard, Truck, Shield, ChevronLeft, Check } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { QRCodeCanvas } from "qrcode.react"
-import { apiList, callPost } from "@/axios/api"
+import { apiList, callGet, callPost } from "@/axios/api"
 import { toast } from "sonner"
 
 export default function CheckoutPage() {
@@ -81,7 +81,17 @@ export default function CheckoutPage() {
         })
         toast(response.msg[0])
         if (response.status) {
+          setPaymentData(response?.data)
           setStep(3)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else if (step === 3) {
+      try {
+        const res = await callGet(`${apiList.check}/${paymentData?.orderId}`)
+        if (res?.status) {
+          router.push(`/order-confirmation?order=${paymentData?.orderId}`)
         }
       } catch (error) {
         console.log(error)
@@ -362,7 +372,7 @@ export default function CheckoutPage() {
                 <div>
                   <ul className="sm:hidden flex justify-center flex-wrap gap-5">
                     {paymentData &&
-                      paymentData?.links.map((el, i) => {
+                      paymentData?.urls.map((el, i) => {
                         return (
                           <li key={i}>
                             <a href={el.link}>
