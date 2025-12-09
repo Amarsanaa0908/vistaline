@@ -51,24 +51,24 @@ export default function CheckoutPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsProcessing(true)
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   setIsProcessing(true)
 
-    // Simulate processing
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+  //   const res = await callGet(`${apiList.check}/${paymentData?.orderId}`)
+  //   console.log('zxc',res)
+  //   if (!res?.status) {
+  //     clearCart()
+  //     router.push(`/order-confirmation?order=${paymentData?.orderId}`)
+  //   } else {
+  //     toast(res?.msg[0])
+  //   }
 
-    // Generate order ID
-    const orderId = `Vistaline-${Date.now().toString(36).toUpperCase()}`
-
-    console.log(formData)
-
-    clearCart()
-    router.push(`/order-confirmation?order=${orderId}`)
-  }
+  //   router.push(`/order-confirmation?order=${paymentData?.orderId}`)
+  // }
 
   const handleNext = async () => {
-    console.log(step)
+    setIsProcessing(true)
     if (step === 2) {
       try {
         const response = await callPost(`${apiList.order}`, {
@@ -80,26 +80,32 @@ export default function CheckoutPage() {
           delivery: shippingMethod,
           note: formData.note,
         })
-        toast(response.msg[0])
         if (response.status) {
           setPaymentData(response?.data)
           setStep(3)
+        } else {
+          toast(response.msg[0])
         }
       } catch (error) {
         console.log(error)
       }
+      
     } else if (step === 3) {
-      try {
-        const res = await callGet(`${apiList.check}/${paymentData?.orderId}`)
-        if (res?.status) {
-          router.push(`/order-confirmation?order=${paymentData?.orderId}`)
-        }
-      } catch (error) {
-        console.log(error)
+      const res = await callGet(`${apiList.check}/${paymentData?.orderId}`)
+      if (res?.status) {
+        clearCart()
+        router.push(`/order-confirmation?order=${paymentData?.orderId}`)
+      } else {
+        toast(res?.msg[0])
       }
     } else {
       setStep(step+1)
     }
+    setIsProcessing(false)
+  }
+
+  const handlePrevious = async () => {
+    setStep(step - 1)
   }
 
   if (cartItems.length === 0) {
@@ -171,7 +177,7 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              <form onSubmit={handleSubmit}>
+              <div>
                 {/* Step 1: Contact & Shipping Info */}
                 {step === 1 && (
                   <div className="space-y-6">
@@ -196,6 +202,7 @@ export default function CheckoutPage() {
                             <Input
                               id="name"
                               name="name"
+                              placeholder="Нэр"
                               value={formData.name}
                               onChange={handleInputChange}
                               required
@@ -214,6 +221,7 @@ export default function CheckoutPage() {
                           <Input
                             id="state"
                             name="state"
+                            placeholder="Улаанбаатар, Дархан"
                             value={formData.state}
                             onChange={handleInputChange}
                             required
@@ -256,17 +264,18 @@ export default function CheckoutPage() {
                             id="phone"
                             name="phone"
                             type="tel"
+                            placeholder="9999****"
                             value={formData.phone}
                             onChange={handleInputChange}
                           />
                         </div>
                          <div>
-                          <Label htmlFor="phone">Тэмдэглэл, сануулга</Label>
+                          <Label htmlFor="note">Тэмдэглэл, сануулга</Label>
                           <Input
                             id="note"
                             name="note"
                             placeholder="Ажлын цагаар авна...."
-                            value={formData.phone}
+                            value={formData.note}
                             onChange={handleInputChange}
                           />
                         </div>
@@ -282,10 +291,13 @@ export default function CheckoutPage() {
                         </div> */}
                       </div>
                     </div>
-
-                    <Button type="button" size="lg" className="w-full" onClick={handleNext}>
-                      Үргэлжлүүлэх
+                    <Button onClick={handleNext} className="w-full" disabled={isProcessing}>
+                      {isProcessing ? "Уншиж байна..." : `Үргэлжлүүлэх`}
                     </Button>
+
+                    {/* <Button type="button" size="lg" className="w-full" onClick={handleNext}>
+                      Үргэлжлүүлэх
+                    </Button> */}
                   </div>
                 )}
 
@@ -355,8 +367,11 @@ export default function CheckoutPage() {
                       >
                         Буцах
                       </Button>
-                      <Button type="button" className="flex-1" onClick={handleNext}>
-                        Үргэлжлүүлэх
+                      {/* <Button onClick={handleNext} className="w-full" disabled={isProcessing}>
+                        
+                      </Button> */}
+                      <Button type="button" className="flex-1" onClick={handleNext} disabled={isProcessing}>
+                        {isProcessing ? "Уншиж байна..." : `Үргэлжлүүлэх`}
                       </Button>
                     </div>
                   </div>
@@ -491,7 +506,7 @@ export default function CheckoutPage() {
                         type="button"
                         variant="outline"
                         className="flex-1 bg-transparent"
-                        onClick={handleNext}
+                        onClick={handlePrevious}
                       >
                         Буцах
                       </Button>
@@ -501,7 +516,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
                 )}
-              </form>
+              </div>
             </div>
 
             {/* Order Summary Sidebar */}
