@@ -39,7 +39,7 @@ export default function Home() {
               Агаар чийгшүүлэгч + Шөнийн гэрэл + Арома нэг дор
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/products/mushroom-diffuser">
+              <Link href="/products/raindrop-diffuser">
                 <Button size="lg" className="min-w-[200px]">
                   Захиалах
                 </Button>
@@ -171,7 +171,7 @@ export default function Home() {
               Shop our premium winter collection at exceptional prices. Quality pieces that will last for seasons to
               come.
             </p> */}
-            <Link href="/products/mushroom-diffuser">
+            <Link href="/products/raindrop-diffuser">
               <Button size="lg" variant="secondary">
                 Захиалах
               </Button>

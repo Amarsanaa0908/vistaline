@@ -221,8 +221,8 @@ export const products = [
     badge: "Шинэ",
   },
   {
-    id: "mushroom-diffuser",
-    name: "Mushroom aroma diffuser",
+    id: "raindrop-diffuser",
+    name: "Raindrop aroma diffuser",
     price: 84500,
     originalPrice: null,
     description:
