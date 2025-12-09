@@ -6,10 +6,14 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, Package, Truck, Mail, ArrowRight, Download, Share2 } from "lucide-react"
+import { useEffect, useState } from "react"
+import { apiList, callGet } from "@/axios/api"
+import moment from "moment"
 
 export default function OrderConfirmationPage() {
   const searchParams = useSearchParams()
   const orderId = searchParams.get("order") || "VISTALINE-XXXXXX"
+  const [data, setData] = useState(null)
 
   const estimatedDelivery = new Date()
   estimatedDelivery.setDate(estimatedDelivery.getDate() + 6)
@@ -37,6 +41,23 @@ export default function OrderConfirmationPage() {
     { icon: CheckCircle, label: "Хүргэсэн", status: "upcoming" },
   ]
 
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const res = await callGet(`${apiList.order}/${orderId}`)
+        setData(res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    fetchOrder()
+  }, [orderId])
+
+  if (!data) {
+    return <div>Түр хүлээнэ үү......</div>
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -56,7 +77,7 @@ export default function OrderConfirmationPage() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-border">
               <div>
                 <p className="text-sm text-muted-foreground">Захиалгын дугаар</p>
-                <p className="text-xl font-bold text-foreground">{orderDetails.id}</p>
+                <p className="text-xl font-bold text-foreground">{data?.orderID}</p>
               </div>
               {/* <div className="flex gap-3">
                 <Button variant="outline" size="sm" className="gap-2 bg-transparent">
@@ -73,11 +94,11 @@ export default function OrderConfirmationPage() {
             <div className="grid sm:grid-cols-2 gap-6 py-6">
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Захиалгын огноо</p>
-                <p className="font-medium text-foreground">{orderDetails.date}</p>
+                <p className="font-medium text-foreground">{moment(data?.createdAt).format('YYYY-MM-DD')}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Хүргэгдэх огноо</p>
-                <p className="font-medium text-foreground">{orderDetails.estimatedDelivery}</p>
+                <p className="font-medium text-foreground">24 цагийн дотор</p>
               </div>
             </div>
 
