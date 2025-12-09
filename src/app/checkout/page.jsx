@@ -79,6 +79,7 @@ export default function CheckoutPage() {
           city: formData.state,
           delivery: shippingMethod,
           note: formData.note,
+          items: cartItems
         })
         if (response.status) {
           setPaymentData(response?.data)
