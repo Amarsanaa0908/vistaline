@@ -89,7 +89,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
       name: "Болормаа Б.",
       location: "Хан-Уул, Улаанбаатар",
       rating: 5,
-      date: "2024.12.01",
+      date: "2025.12.01",
       comment: "Хүүхдийн өрөөнд ашиглаж байна. Өмнө нь шөнөдөө ханиалгадаг байсан, одоо арай дээр болсон. Гэрэл нь бас гоё, унтахын өмнө асаадаг боллоо.",
       helpful: 12,
       verified: true,
@@ -100,18 +100,18 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
       name: "Тэмүүлэн Д.",
       location: "Баянзүрх, Улаанбаатар",
       rating: 5,
-      date: "2024.11.28",
-      comment: "Ээждээ бэлэг авч өгсөн. Өвлийн хуурай агаараас болж арьс нь хатдаг байсан. Одоо өдөр бүр ашиглаж байна гэсэн. Дизайн нь бас өөр юмнаас ялгарч байгаа.",
+      date: "2025.11.28",
+      comment: "Ээждээ бэлэг авч өгсөн. Өвлийн хуурай агаараас болж арьс нь хуурайшдаг байсан. Одоо өдөр бүр ашиглаж байна гэсэн. Дизайн нь бас өөр юмнаас ялгарч байгаа.",
       helpful: 8,
       verified: true,
-      image: "/reviews/review-1.jpg",
+      image: "/reviews/review1.jpeg",
     },
     {
       id: 3,
       name: "Ганзориг М.",
       location: "Сүхбаатар, Улаанбаатар",
       rating: 5,
-      date: "2024.11.25",
+      date: "2025.11.25",
       comment: "Оффисынхоо ширээн дээр тавьсан. Агаар хуурай байдаг газар ажилладаг болохоор яг хэрэгтэй зүйл байсан. Чимээгүй, гоё харагддаг.",
       helpful: 5,
       verified: true,
@@ -122,11 +122,11 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
       name: "Анужин Т.",
       location: "Чингэлтэй, Улаанбаатар",
       rating: 5,
-      date: "2024.11.20",
-      comment: "Хүргэлт хурдан байсан. Шалгаад төлөх боломжтой байсан нь сайн юм. Бараа яг зурагт байгаа шигээ ирсэн.",
+      date: "2025.11.20",
+      comment: "Хүргэлт хурдан байсан. Шалгаад төлөх боломжтой байсан нь сайн юм. Бараа яг зураг шигээ ирсэн.",
       helpful: 15,
       verified: true,
-      image: "/reviews/review-2.jpg",
+      image: "/reviews/review2.jpeg",
     },
   ]
 
@@ -192,7 +192,6 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
   const boxContents = [
     "Rain Forest Humidifier (үндсэн төхөөрөмж)",
     "24V адаптер",
-    "Цэвэрлэх сойз",
     "Хэрэглэх заавар",
   ]
 
@@ -857,7 +856,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                       </div>
                     )}
 
-                    <div className="flex items-center gap-4 pt-4 border-t border-border">
+                    {/* <div className="flex items-center gap-4 pt-4 border-t border-border">
                       <span className="text-sm text-muted-foreground">Тус болсон уу?</span>
                       <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
                         <ThumbsUp className="h-4 w-4" />
@@ -866,7 +865,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                       <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
                         <ThumbsDown className="h-4 w-4" />
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 ))}
               </div>

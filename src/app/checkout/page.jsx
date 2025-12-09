@@ -73,11 +73,12 @@ export default function CheckoutPage() {
       try {
         const response = await callPost(`${apiList.order}`, {
           email: formData.email,
-          name: formData.firstName,
+          name: formData.name,
           address: formData.address,
           phoneNumber: formData.phone,
           city: formData.state,
           delivery: shippingMethod,
+          note: formData.note,
         })
         toast(response.msg[0])
         if (response.status) {
@@ -191,11 +192,11 @@ export default function CheckoutPage() {
                         </div>
                         <div className="grid gap-4">
                           <div>
-                            <Label htmlFor="firstName">Нэр</Label>
+                            <Label htmlFor="name">Нэр</Label>
                             <Input
-                              id="firstName"
-                              name="firstName"
-                              value={formData.firstName}
+                              id="name"
+                              name="name"
+                              value={formData.name}
                               onChange={handleInputChange}
                               required
                             />
@@ -205,19 +206,19 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <h2 className="text-lg font-semibold text-foreground mb-4">Хүргүүлэх мэдээлэл</h2>
+                      <h2 className="text-lg font-semibold text-foreground mb-4">Хаягын мэдээлэл</h2>
                       <div className="space-y-4">
                         
                         <div>
-                            <Label htmlFor="state">Хот, аймаг</Label>
-                            <Input
-                              id="state"
-                              name="state"
-                              value={formData.state}
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
+                          <Label htmlFor="state">Хот, аймаг</Label>
+                          <Input
+                            id="state"
+                            name="state"
+                            value={formData.state}
+                            onChange={handleInputChange}
+                            required
+                          />
+                        </div>
                         {/* <div>
                           <Label htmlFor="apartment">Apartment, suite, etc. (optional)</Label>
                           <Input
@@ -255,6 +256,16 @@ export default function CheckoutPage() {
                             id="phone"
                             name="phone"
                             type="tel"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                         <div>
+                          <Label htmlFor="phone">Тэмдэглэл, сануулга</Label>
+                          <Input
+                            id="note"
+                            name="note"
+                            placeholder="Ажлын цагаар авна...."
                             value={formData.phone}
                             onChange={handleInputChange}
                           />
