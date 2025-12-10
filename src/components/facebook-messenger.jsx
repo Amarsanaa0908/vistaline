@@ -12,6 +12,10 @@ export default function FacebookMessenger({
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
 
     // Load Facebook SDK
     window.fbAsyncInit = function () {
@@ -29,11 +33,21 @@ export default function FacebookMessenger({
       js = d.createElement(s);
       js.id = id;
       js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+      js.onload = function () {
+        // Re-parse after SDK loads and div is in DOM
+        if (window.FB) {
+          window.FB.XFBML.parse();
+        }
+      };
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
-  }, []);
 
-  // Don't render on server - prevents hydration mismatch
+    // If SDK already loaded, re-parse
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
+  }, [mounted]);
+
   if (!mounted) return null;
 
   return (
