@@ -40,7 +40,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/products/raindrop-diffuser">
-                <Button size="lg" className="min-w-[200px]">
+                <Button size="lg" className="min-w-[200px] hover:cursor-pointer">
                   Захиалах
                 </Button>
               </Link>
@@ -172,7 +172,7 @@ export default function Home() {
               come.
             </p> */}
             <Link href="/products/raindrop-diffuser">
-              <Button size="lg" variant="secondary">
+              <Button size="lg" variant="secondary" className="hover:cursor-pointer">
                 Захиалах
               </Button>
             </Link>
