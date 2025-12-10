@@ -1,10 +1,18 @@
-"use client"
+'use client';
 
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react';
 
-export default function FacebookMessenger({pageId = "112646488531022", themeColor, loggedInGreeting, loggedOutGreeting}) {
+export default function FacebookMessenger({
+  pageId,
+  themeColor = '#10B981',
+  loggedInGreeting = 'Сайн байна уу! 👋 Асуух зүйл байвал бичээрэй.',
+  loggedOutGreeting = 'Сайн байна уу! 👋 Тусламж хэрэгтэй юу?',
+}) {
+  const [mounted, setMounted] = useState(false);
 
-   useEffect(() => {
+  useEffect(() => {
+    setMounted(true);
+
     // Load Facebook SDK
     window.fbAsyncInit = function () {
       window.FB.init({
@@ -24,12 +32,13 @@ export default function FacebookMessenger({pageId = "112646488531022", themeColo
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
   }, []);
-    
+
+  // Don't render on server - prevents hydration mismatch
+  if (!mounted) return null;
+
   return (
     <>
-        <div id="fb-root"></div>
-
-      {/* Messenger Chat Plugin */}
+      <div id="fb-root"></div>
       <div
         className="fb-customerchat"
         attribution="setup_tool"
@@ -39,5 +48,5 @@ export default function FacebookMessenger({pageId = "112646488531022", themeColo
         logged_out_greeting={loggedOutGreeting}
       ></div>
     </>
-  )
+  );
 }
