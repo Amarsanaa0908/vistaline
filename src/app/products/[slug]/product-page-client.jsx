@@ -500,7 +500,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                     onClick={handleBuyNow}
                     disabled={!canAddToCart}
                   >
-                    Одоо худалдаж авах
+                    Худалдаж авах
                   </Button>
                 </div>
                 <div className="flex gap-3">
@@ -886,7 +886,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                   Сагсанд нэмэх
                 </Button>
                 <Button size="lg" onClick={handleBuyNow}>
-                  Одоо худалдаж авах — {product.price?.toLocaleString()}₮
+                  Худалдаж авах — {product.price?.toLocaleString()}₮
                 </Button>
               </div>
               <p className="text-sm text-muted-foreground mt-4">
