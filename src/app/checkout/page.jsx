@@ -335,7 +335,7 @@ export default function CheckoutPage() {
                             <RadioGroupItem value="inspect" id="inspect" />
                             <div>
                               <p className="font-medium text-foreground">Үзээд авах</p>
-                              <p className="text-sm text-muted-foreground">Хүргэлтийн үнэ төлөөд та хүргүүлээд үзэж байгаад үлдэгдэл төлбөр төлөх</p>
+                              <p className="text-sm text-muted-foreground">Хүргэлтийн үнэ төлөөд та хүргүүлж аваад үлдэгдэл төлбөр төлөх</p>
                             </div>
                           </div>
                           <span className="font-medium text-foreground">8,000.00₮</span>
