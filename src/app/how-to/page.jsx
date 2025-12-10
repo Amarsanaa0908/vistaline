@@ -1,16 +1,47 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { BookOpen, Droplets, Power, Palette, Wind, Sparkles, AlertTriangle, MessageCircle } from "lucide-react"
+import { useEffect, useRef } from "react"
 
-export const metadata = {
-  title: "Хэрэглэх заавар | Vistaline",
-  description: "Агаар чийгшүүлэгч хэрхэн ашиглах, тохируулах, цэвэрлэх заавар.",
-}
+// export const metadata = {
+//   title: "Хэрэглэх заавар | Vistaline",
+//   description: "Агаар чийгшүүлэгч хэрхэн ашиглах, тохируулах, цэвэрлэх заавар.",
+// }
 
 export default function HowToPage() {
+  const videoRef = useRef(null)
+
+    useEffect(() => {
+      const video = videoRef.current
+      if (!video) return
+  
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              video.play()
+            } else {
+              video.pause()
+            }
+          })
+        },
+        {
+          threshold: 0.5, // Video starts playing when 50% visible
+        }
+      )
+  
+      observer.observe(video)
+  
+      return () => {
+        observer.disconnect()
+      }
+    }, [])
+
   const steps = [
     {
       number: "01",
@@ -156,21 +187,23 @@ export default function HowToPage() {
           </div>
 
           {/* Quick Start Video Placeholder */}
-          <div className="mb-16">
-            <div className="relative aspect-video rounded-2xl overflow-hidden bg-muted border border-border">
-              <Image
-                src="/homepage/how-to-video.jpeg"
-                alt="Хэрэглэх заавар видео"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                <div className="text-center text-white">
-                  <p className="text-lg font-medium">Видео заавар удахгүй...</p>
-                </div>
-              </div>
-            </div>
+         <section className="mt-16">
+          <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Бүтээгдэхүүний бичлэг</h2>
+          <div className="relative aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden bg-muted border border-border">
+            <video
+              ref={videoRef}
+              src="/video.mp4"
+              poster="/homepage/feature3.png"
+              className="w-full h-full object-cover"
+              muted // Required for autoplay to work in most browsers
+              loop // Optional: loop the video
+              playsInline // Better mobile support
+              controls
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
+        </section>
 
           {/* Step by Step */}
           <section className="mb-16">
