@@ -6,6 +6,7 @@ import MetaPixel from "@/components/meta-pixel"
 import { Toaster } from "sonner";
 import FacebookMessenger from "@/components/facebook-messenger";
 import ExitPopup from "@/components/exit-popup";
+import MessengerButton from "@/components/messenger-button";
 
 const geistSans = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -30,9 +31,9 @@ export default function RootLayout({ children }) {
       <body className={`${notoSans.variable} ${notoSans.variable} font-sans antialiased`}>
         <CartProvider>
           {children}
-          <FacebookMessenger pageId="112646488531022" themeColor="#10B981" loggedInGreeting="Сайн уу, Асуух зүйл байвал бичээрэй." loggedOutGreeting="Сайн байна уу" />
+          <MessengerButton />
           
-          <ExitPopup discountCode="WELCOME10" discountPercent={10} />
+          {/* <ExitPopup discountCode="WELCOME10" discountPercent={10} /> */}
           <Analytics />
           <Toaster />
         </CartProvider>
