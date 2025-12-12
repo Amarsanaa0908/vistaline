@@ -558,7 +558,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
 
           {/* Product Video Section */}
           <section className="mt-16">
-          <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Бүтээгдэхүүний видео</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Бүтээгдэхүүний бичлэг</h2>
           <div className="relative aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden bg-muted border border-border">
             <video
               ref={videoRef}

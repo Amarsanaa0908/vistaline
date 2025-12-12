@@ -23,6 +23,9 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
+  console.log('pixel', process.env.NEXT_PUBLIC_META_PIXEL_ID)
+
   return (
     <html lang="en">
       <head>
