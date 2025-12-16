@@ -35,3 +35,33 @@ export const trackAddToCart = ({
 // }) => {
 //   trackEvent('InitiateCheckout', data);
 // };
+
+export function getFbc(){
+  // Always check cookie first (most reliable)
+  const fbcCookie = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('_fbc='))
+    ?.split('=')[1]
+  
+  if (fbcCookie) return fbcCookie
+
+  // Fallback: check current URL (only works on landing page)
+  const params = new URLSearchParams(window.location.search)
+  const fbclid = params.get('fbclid')
+  
+  if (fbclid) {
+    const fbc = `fb.1.${Date.now()}.${fbclid}`
+    // Save it now
+    document.cookie = `_fbc=${fbc}; max-age=7776000; path=/`
+    return fbc
+  }
+  
+  return null
+}
+
+export function getFbp() {
+  return document.cookie
+    .split('; ')
+    .find(row => row.startsWith('_fbp='))
+    ?.split('=')[1] || null
+}

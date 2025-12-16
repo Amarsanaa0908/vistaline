@@ -8,12 +8,28 @@ function MetaPixelTracking() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
+    useEffect(() => {
+    // Capture fbc from fbclid
+    const fbclid = searchParams.get('fbclid');
+    if (fbclid) {
+      const fbc = `fb.1.${Date.now()}.${fbclid}`;
+      document.cookie = `_fbc=${fbc}; max-age=7776000; path=/`;
+    }
+
+     const hasFbp = document.cookie.includes('_fbp=');
+    if (!hasFbp) {
+      const randomNum = Math.floor(Math.random() * 10000000000);
+      const fbp = `fb.1.${Date.now()}.${randomNum}`;
+      document.cookie = `_fbp=${fbp}; max-age=7776000; path=/`;
+    }
+
+    // Track PageView
     if (typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'PageView');
     }
   }, [pathname, searchParams]);
 
+  return null;
   return null;
 }
 

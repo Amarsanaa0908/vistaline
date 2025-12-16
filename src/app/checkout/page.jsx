@@ -16,6 +16,7 @@ import { useCart } from "@/context/cart-context"
 import { QRCodeCanvas } from "qrcode.react"
 import { apiList, callGet, callPost } from "@/axios/api"
 import { toast } from "sonner"
+import { getFbc, getFbp } from "@/lib/meta-pixel"
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -79,7 +80,9 @@ export default function CheckoutPage() {
           city: formData.state,
           delivery: shippingMethod,
           note: formData.note,
-          items: cartItems
+          items: cartItems,
+          fbc: getFbc(),
+          fbp: getFbp(),
         })
         if (response.status) {
           setPaymentData(response?.data)
