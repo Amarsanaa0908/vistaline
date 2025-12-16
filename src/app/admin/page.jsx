@@ -35,10 +35,13 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState("")
 
  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-  // This only runs once on mount
-  const adminAuth = localStorage.getItem("vistaline_admin_auth")
-  return adminAuth === "true"
-})
+  // Check if we're on the client side
+  if (typeof window !== 'undefined') {
+    const adminAuth = localStorage.getItem("vistaline_admin_auth");
+    return adminAuth === "true";
+  }
+  return false; // Default for server-side
+});
 
   const [orders, setOrders] = useState(mockOrders)
   const [searchQuery, setSearchQuery] = useState("")
