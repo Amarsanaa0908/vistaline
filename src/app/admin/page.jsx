@@ -5,6 +5,7 @@ import { Search, Package, CreditCard, Truck, Check, X, Eye, Lock } from "lucide-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { mockOrders, getOrderStats } from "@/lib/orders-data"
+import { apiList, callGet } from "@/axios/api"
 
 const ADMIN_USERNAME = "admin"
 const ADMIN_PASSWORD = "vistaline2024"
@@ -20,7 +21,7 @@ const statusColors = {
 
 const paymentStatusColors = {
   pending: "bg-red-100 text-red-800",
-  paid: "bg-green-100 text-green-800",
+  STATUS_PAID: "bg-green-100 text-green-800",
 }
 
 const shippingMethodLabels = {
@@ -33,6 +34,7 @@ export default function AdminPage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [loginError, setLoginError] = useState("")
+  const [loading, setLoading] = useState(false)
 
  const [isAuthenticated, setIsAuthenticated] = useState(() => {
   // Check if we're on the client side
@@ -43,7 +45,7 @@ export default function AdminPage() {
   return false; // Default for server-side
 });
 
-  const [orders, setOrders] = useState(mockOrders)
+  const [orders, setOrders] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [paymentFilter, setPaymentFilter] = useState("all")
@@ -68,6 +70,25 @@ export default function AdminPage() {
     setUsername("")
     setPassword("")
   }
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        if (isAuthenticated) {
+          setLoading(true)
+          const res = await callGet(`${apiList.admin}`)
+          const { items } = res;
+          setOrders(items)
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchOrder()
+  }, [isAuthenticated])
 
   if (!isAuthenticated) {
     return (
@@ -124,8 +145,12 @@ export default function AdminPage() {
     )
   }
 
+  if (loading) {
+    return <div>Түр хүлээнэ үү.....</div>
+  }
+
   // Filter orders based on search and filters
-  const filteredOrders = orders.filter((order) => {
+  const filteredOrders = orders?.filter((order) => {
     const matchesSearch =
       order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
       order.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -169,7 +194,7 @@ export default function AdminPage() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <div className="flex items-center justify-between">
               <div>
@@ -209,7 +234,7 @@ export default function AdminPage() {
               <X className="w-12 h-12 text-red-500" />
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Filters and Search */}
         <div className="bg-white p-6 rounded-lg shadow-sm border mb-6">
@@ -274,12 +299,12 @@ export default function AdminPage() {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {filteredOrders.map((order) => (
+                {filteredOrders && filteredOrders.map((order) => (
                   <tr key={order.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm font-medium">{order.id}</td>
+                    <td className="px-6 py-4 text-sm font-medium">{order.orderId}</td>
                     <td className="px-6 py-4">
                       <div className="text-sm">
-                        <div className="font-medium">{order.customerName}</div>
+                        <div className="font-medium">{order.name}</div>
                         <div className="text-gray-500">{order.email}</div>
                         <div className="text-gray-500">{order.phone}</div>
                       </div>
@@ -295,7 +320,7 @@ export default function AdminPage() {
                     </td>
                     <td className="px-6 py-4 text-sm font-medium">
                       ₮{order.total.toLocaleString()}
-                      <div className="text-xs text-gray-500">{order.items.length} бараа</div>
+                      <div className="text-xs text-gray-500">{order.length} бараа</div>
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <div>{shippingMethodLabels[order.shippingMethod]}</div>
@@ -304,12 +329,12 @@ export default function AdminPage() {
                     <td className="px-6 py-4">
                       <span
                         className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          paymentStatusColors[order.paymentStatus]
+                          paymentStatusColors[order.status]
                         }`}
                       >
-                        {order.paymentStatus === "paid" ? "Төлөгдсөн" : "Төлөгдөөгүй"}
+                        {order.status === "STATUS_PAID" ? "Төлөгдсөн" : "Төлөгдөөгүй"}
                       </span>
-                      <div className="text-xs text-gray-500 mt-1">{order.paymentMethod.toUpperCase()}</div>
+                      <div className="text-xs text-gray-500 mt-1">QPay</div>
                     </td>
                     <td className="px-6 py-4">
                       <select
@@ -353,7 +378,7 @@ export default function AdminPage() {
             </table>
           </div>
 
-          {filteredOrders.length === 0 && (
+          {filteredOrders && filteredOrders.length === 0 && (
             <div className="text-center py-12 text-gray-500">
               <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
               <p>Захиалга олдсонгүй</p>

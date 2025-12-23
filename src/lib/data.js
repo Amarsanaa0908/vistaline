@@ -224,7 +224,7 @@ export const products = [
     id: "raindrop-diffuser",
     name: "Raindrop aroma diffuser",
     price: 84500,
-    originalPrice: null,
+    originalPrice: 99500,
     description:
       "Rain Forest Humidifier таны гэрийн агаарыг зөөлөн чийглүүлж, амьсгалахад хялбар болгоно. Ультрасоник технологи нь усыг нарийн манан болгон тарааж, өрөөний агаарыг байгалийн ойн адил сэргээнэ. Өвөрмөц мөөгөн дизайн, борооны дусал эффект нь харахад тайвшруулна. 7 өнгийн LED гэрэл нь шөнийн гэрэл болж, хүүхдийн өрөөнд төгс тохирно.",
     rating: 4.7,
@@ -238,7 +238,14 @@ export const products = [
     sizes: [], // empty - no size variants
     features: ["280мл, 4 цаг ажиллана", "7 өнгө", "Удирдлагатай", "Автоматаар унтрана"],
     badge: "Шинэ",
+    uuid: "c5e81692-71d9-4f70-91d3-93b8e95ce36a"
   },
+  {
+    id: "cloud-tulip-mirror",
+    name: "Алтанзул цэцэгт толь",
+    price: 45000,
+    originalPrice: null,
+  }
 ]
 
 export const collections = [

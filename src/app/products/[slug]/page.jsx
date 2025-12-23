@@ -4,8 +4,7 @@ import { getProductById, products, upsellProducts } from "@/lib/data"
 export default async function ProductPage({ params }) {
 
   const { slug } = await params
-  console.log(slug)
-  const product = await getProductById(slug)
+  const product = getProductById(slug)
   const relatedProducts = products
     .filter((p) => p.id !== product?.id && p.collection === product?.collection)
     .slice(0, 4)

@@ -3,8 +3,8 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 
 export const metadata = {
-  title: "Privacy Policy | VISTALINE",
-  description: "VISTALINE privacy policy - how we collect, use, and protect your personal information.",
+  title: "Нууцлалын бодлого | VISTALINE",
+  description: "VISTALINE нууцлалын бодлого - таны хувийн мэдээллийг хэрхэн цуглуулж, ашиглаж, хамгаалдаг талаар.",
 }
 
 export default function PrivacyPage() {
@@ -16,146 +16,180 @@ export default function PrivacyPage() {
           {/* Breadcrumb */}
           <nav className="text-sm text-muted-foreground mb-8">
             <Link href="/" className="hover:text-foreground">
-              Home
+              Нүүр
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Privacy Policy</span>
+            <span className="text-foreground">Нууцлалын бодлого</span>
           </nav>
 
-          <h1 className="text-4xl font-bold text-foreground mb-4">Privacy Policy</h1>
-          <p className="text-muted-foreground mb-8">Last updated: December 2, 2025</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Нууцлалын бодлого</h1>
+          <p className="text-muted-foreground mb-8">Сүүлд шинэчилсэн: 2025 оны 12-р сарын 18</p>
 
           <div className="prose prose-slate max-w-none">
             <div className="space-y-8">
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">1. Introduction</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">1. Танилцуулга</h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  At VISTALINE (we, our, or us), we are committed to protecting your privacy. This Privacy Policy
-                  explains how we collect, use, disclose, and safeguard your information when you visit our website or
-                  make a purchase from us.
+                  VISTALINE (&quot;бид&quot;, &quot;манай&quot;, &quot;бидний&quot;) нь таны нууцлалыг хамгаалахыг эрхэмлэдэг. 
+                  Энэхүү Нууцлалын бодлого нь таныг манай вэбсайтад зочлох эсвэл бидний бүтээгдэхүүн 
+                  худалдан авахад таны мэдээллийг хэрхэн цуглуулж, ашиглаж, хадгалдаг талаар тайлбарлана.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy,
-                  please do not access the site.
+                  Манай вэбсайтыг ашигласнаар та энэхүү нууцлалын бодлогыг зөвшөөрч байна.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">2. Information We Collect</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">2. Цуглуулдаг мэдээлэл</h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  We collect information that you provide directly to us, including:
+                  Бид дараах мэдээллийг цуглуулна:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                  <li>Personal identification information (name, email address, phone number)</li>
-                  <li>Billing and shipping addresses</li>
-                  <li>Payment information (processed securely through our payment providers)</li>
-                  <li>Order history and preferences</li>
-                  <li>Communications you send to us</li>
-                  <li>Account credentials if you create an account</li>
+                  <li>Хувийн мэдээлэл (нэр, овог, имэйл хаяг, утасны дугаар)</li>
+                  <li>Хүргэлтийн хаяг (аймаг/хот, сум/дүүрэг, дэлгэрэнгүй хаяг)</li>
+                  <li>Захиалгын түүх</li>
+                  <li>Төлбөрийн мэдээлэл (QPay, банкны шилжүүлэг)</li>
+                  <li>Техникийн мэдээлэл (IP хаяг, хөтчийн төрөл, төхөөрөмж)</li>
                 </ul>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">3. How We Use Your Information</h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">We use the information we collect to:</p>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">3. Мэдээлэл ашиглалт</h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Бид таны мэдээллийг дараах зорилгоор ашиглана:
+                </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                  <li>Process and fulfill your orders</li>
-                  <li>Send you order confirmations and shipping updates</li>
-                  <li>Respond to your inquiries and provide customer support</li>
-                  <li>Send promotional communications (with your consent)</li>
-                  <li>Improve our website and services</li>
-                  <li>Prevent fraud and enhance security</li>
-                  <li>Comply with legal obligations</li>
+                  <li>Захиалга боловсруулах, хүргэлт хийх</li>
+                  <li>Захиалгын төлөв, хүргэлтийн мэдээлэл илгээх</li>
+                  <li>Хэрэглэгчийн асуулт, гомдол шийдвэрлэх</li>
+                  <li>Вэбсайт, үйлчилгээгээ сайжруулах</li>
+                  <li>Зар сурталчилгааны үр дүнг хэмжих</li>
                 </ul>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">4. Information Sharing</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">4. Meta (Facebook) Pixel болон Conversions API</h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  We do not sell, trade, or rent your personal information to third parties. We may share your
-                  information with:
+                  Бид Meta (Facebook) Pixel болон Conversions API ашиглан зар сурталчилгааны үр дүнг 
+                  хэмждэг. Энэ нь дараах байдлаар ажилладаг:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                  <li>Service providers who assist in our operations (payment processors, shipping carriers)</li>
-                  <li>Analytics providers to help us understand how our site is used</li>
-                  <li>Law enforcement when required by law or to protect our rights</li>
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">5. Cookies and Tracking</h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  We use cookies and similar tracking technologies to enhance your experience on our website. These
-                  technologies help us:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                  <li>Remember your preferences and settings</li>
-                  <li>Understand how you use our website</li>
-                  <li>Provide personalized content and recommendations</li>
-                  <li>Analyze the effectiveness of our marketing efforts</li>
+                  <li>Таны имэйл, утас, нэр, байршил зэрэг мэдээллийг SHA256 аргаар нууцалсан (hashed) 
+                      хэлбэрээр Meta-д илгээдэг</li>
+                  <li>Meta энэ мэдээллийг шууд унших боломжгүй</li>
+                  <li>Зөвхөн манай зар таныг хүрсэн эсэхийг баталгаажуулахад ашиглагддаг</li>
+                  <li>Таны мэдээллийг худалдахгүй, бусдад дамжуулахгүй</li>
                 </ul>
                 <p className="text-muted-foreground leading-relaxed mt-4">
-                  You can control cookies through your browser settings. However, disabling cookies may affect your
-                  experience on our site.
+                  Meta-ийн нууцлалын бодлогыг{" "}
+                  <a 
+                    href="https://www.facebook.com/privacy/policy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    эндээс
+                  </a>
+                  {" "}уншина уу.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">6. Data Security</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  We implement appropriate technical and organizational security measures to protect your personal
-                  information. All transactions are processed through secure, encrypted connections using SSL
-                  technology. However, no method of transmission over the Internet is 100% secure, and we cannot
-                  guarantee absolute security.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">7. Your Rights</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">5. Cookies (Күүки)</h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Depending on your location, you may have certain rights regarding your personal information,
-                  including:
+                  Манай вэбсайт дараах cookies ашигладаг:
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full text-sm text-muted-foreground mt-4">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-2 pr-4 font-semibold text-foreground">Cookie</th>
+                        <th className="text-left py-2 pr-4 font-semibold text-foreground">Зорилго</th>
+                        <th className="text-left py-2 font-semibold text-foreground">Хугацаа</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b">
+                        <td className="py-2 pr-4">_fbp</td>
+                        <td className="py-2 pr-4">Meta Pixel - хөтчийг таних</td>
+                        <td className="py-2">90 хоног</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2 pr-4">_fbc</td>
+                        <td className="py-2 pr-4">Meta Pixel - зар дээр дарсан эсэхийг хянах</td>
+                        <td className="py-2">90 хоног</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Та хөтчийнхөө тохиргооноос cookies-ийг хаах боломжтой. Гэхдээ энэ нь вэбсайтын 
+                  зарим функцэд нөлөөлж болно.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">6. Гуравдагч талтай хуваалцах</h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Бид таны мэдээллийг зөвхөн дараах тохиолдолд гуравдагч талтай хуваалцана:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                  <li>The right to access your personal information</li>
-                  <li>The right to correct inaccurate information</li>
-                  <li>The right to delete your information</li>
-                  <li>The right to opt-out of marketing communications</li>
-                  <li>The right to data portability</li>
+                  <li><strong>Төлбөрийн үйлчилгээ:</strong> QPay, банкууд (төлбөр боловсруулах)</li>
+                  <li><strong>Хүргэлтийн үйлчилгээ:</strong> Хүргэлтийн хаягийг дамжуулах</li>
+                  <li><strong>Meta (Facebook):</strong> Зар сурталчилгааны үр дүнг хэмжих (нууцалсан хэлбэрээр)</li>
+                  <li><strong>Хууль хяналт:</strong> Хуулиар шаардлагатай тохиолдолд</li>
                 </ul>
                 <p className="text-muted-foreground leading-relaxed mt-4">
-                  To exercise any of these rights, please contact us at privacy@VISTALINE.com.
+                  Бид таны мэдээллийг худалдахгүй.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">8. Children&apos;s Privacy</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">7. Мэдээллийн аюулгүй байдал</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Our website is not intended for children under 13 years of age. We do not knowingly collect personal
-                  information from children under 13. If you believe we have collected information from a child under
-                  13, please contact us immediately.
+                  Бид таны мэдээллийг хамгаалахын тулд дараах арга хэмжээг авдаг:
+                </p>
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground mt-4">
+                  <li>SSL/TLS нууцлал (HTTPS)</li>
+                  <li>Мэдээллийг SHA256 аргаар нууцлах</li>
+                  <li>Аюулгүй сервер, мэдээллийн сан</li>
+                </ul>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">8. Таны эрх</h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Та дараах эрхтэй:
+                </p>
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                  <li>Өөрийн мэдээлэлд хандах, хуулбар авах</li>
+                  <li>Буруу мэдээллийг засуулах</li>
+                  <li>Мэдээллээ устгуулах хүсэлт гаргах</li>
+                  <li>Маркетингийн мэдээлэл хүлээн авахаас татгалзах</li>
+                </ul>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Эдгээр эрхээ хэрэгжүүлэхийг хүсвэл бидэнтэй холбогдоно уу.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">9. Changes to This Policy</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">9. Бодлогын өөрчлөлт</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We may update this privacy policy from time to time. We will notify you of any changes by posting the
-                  new privacy policy on this page and updating the Last updated&quot; date. We encourage you to review this
-                  privacy policy periodically.
+                  Бид энэхүү нууцлалын бодлогыг шинэчилж болно. Өөрчлөлт оруулсан тохиолдолд 
+                  энэ хуудсан дээр нийтэлж, &quot;Сүүлд шинэчилсэн&quot; огноог өөрчилнө.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-foreground mb-4">10. Contact Us</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">10. Холбоо барих</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  If you have any questions about this Privacy Policy, please contact us at:
+                  Нууцлалын талаар асуулт байвал бидэнтэй холбогдоно уу:
                 </p>
                 <div className="mt-4 p-4 rounded-lg bg-muted/50">
                   <p className="text-foreground font-medium">VISTALINE</p>
-                  <p className="text-muted-foreground">123 Fashion Ave, New York, NY 10001</p>
-                  <p className="text-muted-foreground">Email: privacy@VISTALINE.com</p>
-                  <p className="text-muted-foreground">Phone: +1 (800) 555-VISTALINE</p>
+                  <p className="text-muted-foreground">Улаанбаатар хот, Монгол</p>
+                  <p className="text-muted-foreground">Имэйл: info@vistaline.store</p>
+                  <p className="text-muted-foreground">Утас: +976 9514-1452</p>
                 </div>
               </section>
             </div>

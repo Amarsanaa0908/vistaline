@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
@@ -17,6 +17,8 @@ import { QRCodeCanvas } from "qrcode.react"
 import { apiList, callGet, callPost } from "@/axios/api"
 import { toast } from "sonner"
 import { getFbc, getFbp } from "@/lib/meta-pixel"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { getDistricts, getProvinces } from "@/lib/locations"
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -25,6 +27,8 @@ export default function CheckoutPage() {
   const [shippingMethod, setShippingMethod] = useState("standard")
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentData, setPaymentData] = useState()
+  const [selectedProvince, setSelectedProvince] = useState('')
+  const [selectedDistrict, setSelectedDistrict] = useState('')
 
   const [formData, setFormData] = useState({
     email: "",
@@ -35,7 +39,7 @@ export default function CheckoutPage() {
     city: "",
     state: "",
     zip: "",
-    country: "United States",
+    country: "Mongolia",
     phone: "",
     saveInfo: true,
     cardNumber: "",
@@ -43,6 +47,9 @@ export default function CheckoutPage() {
     cardCvc: "",
     cardName: "",
   })
+
+  const provinces = getProvinces()
+  const districts = getDistricts(selectedProvince)
 
   const shippingCost = shippingMethod === "express" ? 20000 : shippingMethod === "inspect"? 8000 : cartTotal >= 100 ? 0 : 8000
   const tax = cartTotal * 0.0
@@ -72,12 +79,16 @@ export default function CheckoutPage() {
     setIsProcessing(true)
     if (step === 2) {
       try {
+        const province = provinces.find(p => p.code === selectedProvince)
+        const district = districts.find(d => d.code === selectedDistrict)
         const response = await callPost(`${apiList.order}`, {
           email: formData.email,
-          name: formData.name,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           address: formData.address,
           phoneNumber: formData.phone,
-          city: formData.state,
+          city: province?.name_en || "",
+          district: district?.name || "",
           delivery: shippingMethod,
           note: formData.note,
           items: cartItems,
@@ -130,7 +141,6 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Simplified Header */}
       <header className="border-b border-border py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -159,24 +169,28 @@ export default function CheckoutPage() {
               </Link>
 
               {/* Progress Steps */}
-              <div className="flex items-center gap-4 mb-8">
+             <div className="flex items-center justify-between mb-8">
                 {["Мэдээлэл", "Хүргэлт", "Төлбөр"].map((label, index) => (
                   <div key={label} className="flex items-center gap-2">
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                        step > index + 1
-                          ? "bg-accent text-accent-foreground"
-                          : step === index + 1
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted text-muted-foreground"
-                      }`}
-                    >
-                      {step > index + 1 ? <Check className="h-4 w-4" /> : index + 1}
+                    <div className="flex flex-col items-center gap-1 sm:flex-row sm:gap-2">
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                          step > index + 1
+                            ? "bg-accent text-accent-foreground"
+                            : step === index + 1
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        {step > index + 1 ? <Check className="h-4 w-4" /> : index + 1}
+                      </div>
+                      <span
+                        className={`text-xs sm:text-sm ${step >= index + 1 ? "text-foreground" : "text-muted-foreground"}`}
+                      >
+                        {label}
+                      </span>
                     </div>
-                    <span className={`text-sm ${step >= index + 1 ? "text-foreground" : "text-muted-foreground"}`}>
-                      {label}
-                    </span>
-                    {index < 2 && <div className="w-8 h-px bg-border" />}
+                    {index < 2 && <div className="hidden sm:block w-8 h-px bg-border mx-2" />}
                   </div>
                 ))}
               </div>
@@ -188,26 +202,37 @@ export default function CheckoutPage() {
                     <div>
                       <h2 className="text-lg font-semibold text-foreground mb-4">Хэрэглэгчийн мэдээлэл</h2>
                       <div className="space-y-4">
-                        <div>
+                        <div className="space-y-2">
                           <Label htmlFor="email">Имэйл</Label>
                           <Input
                             id="email"
                             name="email"
                             type="email"
-                            placeholder="your@email.com"
+                            placeholder="Имэйл хаяг"
                             value={formData.email}
                             onChange={handleInputChange}
                             required
                           />
                         </div>
-                        <div className="grid gap-4">
-                          <div>
-                            <Label htmlFor="name">Нэр</Label>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="firstName">Нэр</Label>
                             <Input
-                              id="name"
-                              name="name"
+                              id="firstName"
+                              name="firstName"
                               placeholder="Нэр"
-                              value={formData.name}
+                              value={formData.firstName}
+                              onChange={handleInputChange}
+                              required
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="lastName">Овог</Label>
+                            <Input
+                              id="lastName"
+                              name="lastName"
+                              placeholder="Овог"
+                              value={formData.lastName}
                               onChange={handleInputChange}
                               required
                             />
@@ -219,33 +244,47 @@ export default function CheckoutPage() {
                     <div>
                       <h2 className="text-lg font-semibold text-foreground mb-4">Хаягын мэдээлэл</h2>
                       <div className="space-y-4">
-                        
-                        <div>
-                          <Label htmlFor="state">Хот, аймаг</Label>
-                          <Input
-                            id="state"
-                            name="state"
-                            placeholder="Улаанбаатар, Дархан"
-                            value={formData.state}
-                            onChange={handleInputChange}
-                            required
-                          />
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="province">Аймаг, хот</Label>
+                            <Select
+                              value={selectedProvince}
+                              onValueChange={(value) => {
+                                setSelectedProvince(value)
+                                setSelectedDistrict('')
+                              }}
+                              required
+                            >
+                              <SelectTrigger id="province" className="w-full">
+                                <SelectValue placeholder="Сонгох..." />
+                              </SelectTrigger>
+                              <SelectContent className="max-h-[200px]">
+                                {provinces.map(p => (
+                                  <SelectItem key={p.code} value={p.code}>{p.name}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <Label htmlFor="district">Сум, дүүрэг</Label>
+                            <Select
+                              value={selectedDistrict}
+                              onValueChange={setSelectedDistrict}
+                              disabled={!selectedProvince}
+                            >
+                              <SelectTrigger id="district" className="w-full">
+                                <SelectValue placeholder="Сонгох..." />
+                              </SelectTrigger>
+                              <SelectContent className="max-h-[200px]">
+                                {districts.map(d => (
+                                  <SelectItem key={d.code} value={d.code}>{d.name}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
                         </div>
-                        {/* <div>
-                          <Label htmlFor="apartment">Apartment, suite, etc. (optional)</Label>
-                          <Input
-                            id="apartment"
-                            name="apartment"
-                            value={formData.apartment}
-                            onChange={handleInputChange}
-                          />
-                        </div> */}
-                        <div className="grid gap-4">
-                          {/* <div>
-                            <Label htmlFor="city">City</Label>
-                            <Input id="city" name="city" value={formData.city} onChange={handleInputChange} required />
-                          </div> */}
-                          <div>
+                        <div className="space-y-2">
                           <Label htmlFor="address">Хаяг</Label>
                           <Input
                             id="address"
@@ -255,14 +294,8 @@ export default function CheckoutPage() {
                             onChange={handleInputChange}
                             required
                           />
-                          
                         </div>
-                          {/* <div>
-                            <Label htmlFor="zip">ZIP Code</Label>
-                            <Input id="zip" name="zip" value={formData.zip} onChange={handleInputChange} required />
-                          </div> */}
-                        </div>
-                        <div>
+                        <div className="space-y-2">
                           <Label htmlFor="phone">Утасны дугаар</Label>
                           <Input
                             id="phone"
@@ -271,9 +304,10 @@ export default function CheckoutPage() {
                             placeholder="9999****"
                             value={formData.phone}
                             onChange={handleInputChange}
+                            required
                           />
                         </div>
-                         <div>
+                        <div className="space-y-2">
                           <Label htmlFor="note">Тэмдэглэл, сануулга</Label>
                           <Input
                             id="note"
@@ -283,25 +317,12 @@ export default function CheckoutPage() {
                             onChange={handleInputChange}
                           />
                         </div>
-                        {/* <div className="flex items-center gap-2">
-                          <Checkbox
-                            id="saveInfo"
-                            checked={formData.saveInfo}
-                            onCheckedChange={(checked) => setFormData({ ...formData, saveInfo: checked })}
-                          />
-                          <Label htmlFor="saveInfo" className="text-sm text-muted-foreground">
-                            Save this information for next time
-                          </Label>
-                        </div> */}
                       </div>
                     </div>
-                    <Button onClick={handleNext} className="w-full" disabled={isProcessing}>
-                      {isProcessing ? "Уншиж байна..." : `Үргэлжлүүлэх`}
-                    </Button>
 
-                    {/* <Button type="button" size="lg" className="w-full" onClick={handleNext}>
+                    <Button type="button" size="lg" className="w-full" onClick={() => setStep(2)}>
                       Үргэлжлүүлэх
-                    </Button> */}
+                    </Button>
                   </div>
                 )}
 
@@ -414,84 +435,6 @@ export default function CheckoutPage() {
                   </ul>
                 </div>
                     </div>
-                    {/* <div>
-                      <h2 className="text-lg font-semibold text-foreground mb-4">Төлбөр төлөх</h2>
-                      <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-3 mb-6">
-                        <label
-                          className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-colors ${
-                            paymentMethod === "card"
-                              ? "border-primary bg-primary/5"
-                              : "border-border hover:border-muted-foreground"
-                          }`}
-                        >
-                          <RadioGroupItem value="card" id="card" />
-                          <CreditCard className="h-5 w-5 text-muted-foreground" />
-                          <span className="font-medium text-foreground">Credit Card</span>
-                        </label>
-                        <label
-                          className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-colors ${
-                            paymentMethod === "paypal"
-                              ? "border-primary bg-primary/5"
-                              : "border-border hover:border-muted-foreground"
-                          }`}
-                        >
-                          <RadioGroupItem value="paypal" id="paypal" />
-                          <span className="font-bold text-[#003087]">Pay</span>
-                          <span className="font-bold text-[#009cde]">Pal</span>
-                        </label>
-                      </RadioGroup>
-
-                      {paymentMethod === "card" && (
-                        <div className="space-y-4">
-                          <div>
-                            <Label htmlFor="cardNumber">Card Number</Label>
-                            <Input
-                              id="cardNumber"
-                              name="cardNumber"
-                              placeholder="1234 5678 9012 3456"
-                              value={formData.cardNumber}
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="cardName">Name on Card</Label>
-                            <Input
-                              id="cardName"
-                              name="cardName"
-                              placeholder="John Doe"
-                              value={formData.cardName}
-                              onChange={handleInputChange}
-                              required
-                            />
-                          </div>
-                          <div className="grid grid-cols-2 gap-4">
-                            <div>
-                              <Label htmlFor="cardExpiry">Expiry Date</Label>
-                              <Input
-                                id="cardExpiry"
-                                name="cardExpiry"
-                                placeholder="MM / YY"
-                                value={formData.cardExpiry}
-                                onChange={handleInputChange}
-                                required
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor="cardCvc">CVC</Label>
-                              <Input
-                                id="cardCvc"
-                                name="cardCvc"
-                                placeholder="123"
-                                value={formData.cardCvc}
-                                onChange={handleInputChange}
-                                required
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div> */}
 
                     <div className="p-4 rounded-xl bg-muted/50 border border-border">
                       <div className="flex items-center gap-3">
@@ -524,31 +467,27 @@ export default function CheckoutPage() {
             </div>
 
             {/* Order Summary Sidebar */}
-            <div className="hidden lg:block">
+            <div className="lg:block pt-8">
               <div className="sticky top-8 p-6 rounded-xl bg-muted/30 border border-border">
                 <h2 className="text-lg font-semibold text-foreground mb-6">Захиалгын хураангуй</h2>
-
                 <div className="space-y-4 mb-6">
                   {cartItems.map((item) => (
                     <div key={`${item.id}-${item.selectedColor?.name}-${item.selectedSize}`} className="flex gap-4">
                       <div className="relative w-16 h-20 rounded-lg overflow-hidden bg-muted">
-                        <Image
-                          src={item?.image || "/placeholder.svg"}
-                          alt={item.name}
-                          fill
-                          className="object-cover"
-                        />
+                        <Image src={item?.image || "/placeholder.svg"} alt={item.name} fill className="object-cover" />
                         <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-muted-foreground text-background text-xs flex items-center justify-center">
                           {item.quantity}
                         </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-foreground text-sm truncate">{item.name}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {item.selectedColor?.name} / {item.selectedSize}
-                        </p>
-                        <p className="text-sm font-medium text-foreground mt-1">
-                          {(item.price * item.quantity).toFixed(2)}₮
+                      <div className="flex-1 min-w-0 flex justify-between items-start">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-foreground text-sm truncate">{item.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {item.selectedColor?.name} / {item.selectedSize}
+                          </p>
+                        </div>
+                        <p className="text-sm font-medium text-foreground ml-4 shrink-0">
+                          {(item.price * item.quantity).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}₮
                         </p>
                       </div>
                     </div>
@@ -558,12 +497,12 @@ export default function CheckoutPage() {
                 <div className="space-y-3 pt-4 border-t border-border">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Дүн</span>
-                    <span className="text-foreground">{cartTotal.toFixed(2)}₮</span>
+                    <span className="text-foreground">{cartTotal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}₮</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Хүргэлт</span>
                     <span className={shippingCost === 0 ? "text-accent" : "text-foreground"}>
-                      {shippingCost === 0 ? "ҮНЭГҮЙ" : `${shippingCost.toFixed(2)}₮`}
+                      {shippingCost === 0 ? "ҮНЭГҮЙ" : `${shippingCost.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}₮`}
                     </span>
                   </div>
                   {/* <div className="flex justify-between text-sm">
@@ -572,7 +511,9 @@ export default function CheckoutPage() {
                   </div> */}
                   <div className="flex justify-between pt-3 border-t border-border">
                     <span className="font-semibold text-foreground">Нийт</span>
-                    <span className="text-xl font-bold text-foreground">{total.toFixed(2)}₮</span>
+                    <span className="text-xl font-bold text-foreground">
+                      ₮{total.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
                   </div>
                 </div>
 
