@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
       <body className={`${notoSans.variable} ${notoSans.variable} font-sans antialiased`}>
         <CartProvider>
           {children}
-          <MessengerButton />
+          {/* <MessengerButton /> */}
           <FbclidCapture />
           {/* <ExitPopup discountCode="WELCOME10" discountPercent={10} /> */}
           <Analytics />
