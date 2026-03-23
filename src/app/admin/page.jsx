@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { mockOrders, getOrderStats } from "@/lib/orders-data"
 import { apiList, callGet } from "@/axios/api"
+import MainLayout from "@/components/layout/page"
 
 const ADMIN_USERNAME = "admin"
 const ADMIN_PASSWORD = "vistaline2024"
@@ -25,8 +26,8 @@ const paymentStatusColors = {
 }
 
 const shippingMethodLabels = {
-  free: "Үнэгүй хүргэлт (12-36ц)",
-  cod: "Төлбөр хүргэлтээр ₮8,000",
+  standard: "Үнэгүй хүргэлт (12-36ц)",
+  inspect: "Төлбөр хүргэлтээр ₮8,000",
   express: "Шуурхай ₮20,000 (3-4ц)",
 }
 
@@ -176,7 +177,8 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <MainLayout>
+      <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b">
         <div className="container mx-auto px-4 py-4">
@@ -194,7 +196,7 @@ export default function AdminPage() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Stats Grid */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <div className="flex items-center justify-between">
               <div>
@@ -234,7 +236,7 @@ export default function AdminPage() {
               <X className="w-12 h-12 text-red-500" />
             </div>
           </div>
-        </div> */}
+        </div>
 
         {/* Filters and Search */}
         <div className="bg-white p-6 rounded-lg shadow-sm border mb-6">
@@ -291,6 +293,7 @@ export default function AdminPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Захиалга №</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Хэрэглэгч</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Огноо</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Хаяг</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дүн</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Хүргэлт</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Төлбөр</th>
@@ -310,20 +313,23 @@ export default function AdminPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 text-sm">
-                      {new Date(order.orderDate).toLocaleDateString("mn-MN")}
+                      {new Date(order.createdAt).toLocaleDateString("mn-MN")}
                       <div className="text-gray-500 text-xs">
-                        {new Date(order.orderDate).toLocaleTimeString("mn-MN", {
+                        {new Date(order.createdAt).toLocaleTimeString("mn-MN", {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-sm font-medium">
+                      <div className="text-xs">{order.address}</div>
+                    </td>
+                    <td className="px-6 py-4 text-sm font-medium">
                       ₮{order.total.toLocaleString()}
                       <div className="text-xs text-gray-500">{order.length} бараа</div>
                     </td>
                     <td className="px-6 py-4 text-sm">
-                      <div>{shippingMethodLabels[order.shippingMethod]}</div>
+                      <div>{shippingMethodLabels[order.shipping]}</div>
                       {order.trackingNumber && <div className="text-xs text-gray-500 mt-1">{order.trackingNumber}</div>}
                     </td>
                     <td className="px-6 py-4">
@@ -488,5 +494,6 @@ export default function AdminPage() {
         </div>
       )}
     </div>
+    </MainLayout>
   )
 }

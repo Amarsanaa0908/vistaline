@@ -8,6 +8,7 @@ import FacebookMessenger from "@/components/facebook-messenger";
 import ExitPopup from "@/components/exit-popup";
 import MessengerButton from "@/components/messenger-button";
 import { FbclidCapture } from "@/components/fbclid-capturer";
+import { ConfirmModalProvider } from "@/context/confirm-modal-context";
 
 const geistSans = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -25,8 +26,6 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 
-  console.log('pixel', process.env.NEXT_PUBLIC_META_PIXEL_ID)
-
   return (
     <html lang="en">
       <head>
@@ -34,12 +33,14 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${notoSans.variable} ${notoSans.variable} font-sans antialiased`}>
         <CartProvider>
+          <ConfirmModalProvider>
           {children}
           {/* <MessengerButton /> */}
           <FbclidCapture />
           {/* <ExitPopup discountCode="WELCOME10" discountPercent={10} /> */}
           <Analytics />
           <Toaster />
+          </ConfirmModalProvider>
         </CartProvider>
       </body>
     </html>

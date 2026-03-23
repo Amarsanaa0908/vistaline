@@ -1,5 +1,7 @@
 // Shared product and store data for the ecommerce store
 
+import { Baby, Briefcase, Droplets, Gift, Hand, Leaf, Lightbulb, Moon, VolumeX, Zap } from "lucide-react"
+
 export const products = [
   {
     id: "merino-wool-sweater",
@@ -238,13 +240,152 @@ export const products = [
     sizes: [], // empty - no size variants
     features: ["280мл, 4 цаг ажиллана", "7 өнгө", "Удирдлагатай", "Автоматаар унтрана"],
     badge: "Шинэ",
-    uuid: "c5e81692-71d9-4f70-91d3-93b8e95ce36a"
+    uuid: "c5e81692-71d9-4f70-91d3-93b8e95ce36a",
+    reviews: [
+      {
+      id: 1,
+      name: "Болормаа Б.",
+      location: "Хан-Уул, Улаанбаатар",
+      rating: 5,
+      date: "2025.12.01",
+      comment: "Хүүхдийн өрөөнд ашиглаж байна. Өмнө нь шөнөдөө ханиалгадаг байсан, одоо арай дээр болсон. Гэрэл нь бас гоё, унтахын өмнө асаадаг боллоо.",
+      helpful: 12,
+      verified: true,
+      image: null,
+    },
+    {
+      id: 2,
+      name: "Тэмүүлэн Д.",
+      location: "Баянзүрх, Улаанбаатар",
+      rating: 5,
+      date: "2025.11.28",
+      comment: "Ээждээ бэлэг авч өгсөн. Өвлийн хуурай агаараас болж арьс нь хуурайшдаг байсан. Одоо өдөр бүр ашиглаж байна гэсэн. Дизайн нь бас өөр юмнаас ялгарч байгаа.",
+      helpful: 8,
+      verified: true,
+      image: "/reviews/review1.jpeg",
+    },
+    {
+      id: 3,
+      name: "Ганзориг М.",
+      location: "Сүхбаатар, Улаанбаатар",
+      rating: 5,
+      date: "2025.11.25",
+      comment: "Оффисынхоо ширээн дээр тавьсан. Агаар хуурай байдаг газар ажилладаг болохоор яг хэрэгтэй зүйл байсан. Чимээгүй, гоё харагддаг.",
+      helpful: 5,
+      verified: true,
+      image: null,
+    },
+    {
+      id: 4,
+      name: "Анужин Т.",
+      location: "Чингэлтэй, Улаанбаатар",
+      rating: 5,
+      date: "2025.11.20",
+      comment: "Хүргэлт хурдан байсан. Шалгаад төлөх боломжтой байсан нь сайн юм. Бараа яг зураг шигээ ирсэн.",
+      helpful: 15,
+      verified: true,
+      image: "/reviews/review2.jpeg",
+    },],
+faqs: [
+  {
+      question: "Хэр удаан ажиллах вэ?",
+      answer: "Нэг удаа дүүргэхэд 4 цаг тасралтгүй ажиллана. 280мл багтаамжтай.",
+    },
+    {
+      question: "Чимээтэй юу?",
+      answer: "Үгүй. 35 дБ — энэ бол шивнэх дуунаас ч чимээгүй. Шөнөжин асааж унтаж болно.",
+    },
+    {
+      question: "Арома тос хэрэглэж болох уу?",
+      answer: "Тийм. Усанд уусдаг арома тос ашиглаж болно. Лаванда, мята, апельсин зэрэг дуртай үнэрээ нэмээрэй.",
+    },
+    {
+      question: "Хүүхдийн өрөөнд ашиглаж болох уу?",
+      answer: "Тийм. Хүүхдийн өрөөнд маш тохиромжтой. Шөнийн гэрэл + чийгшүүлэгч хоёр нэг дор.",
+    },
+    {
+      question: "Яаж цэвэрлэх вэ?",
+      answer: "Долоо хоног бүр усыг солиж, зөөлөн алчуураар арчина. Сар бүр цууны уусмалаар угааж болно.",
+    },],
+    specifications: [
+      { label: "Багтаамж", value: "280мл" },
+    { label: "Ажиллах хугацаа", value: "4 цаг" },
+    { label: "Дуу чимээ", value: "35 дБ" },
+    { label: "Тэжээл", value: "24V адаптер" },
+    { label: "Материал", value: "ABS + PP" },
+    { label: "LED гэрэл", value: "7 өнгө" },
+    { label: "Удирдлага", value: "Мэдрэгчтэй товч" },
+    { label: "Онцлог", value: "Автомат унтраалт" },
+    { label: "Баталгаа", value: "1 жил" },
+    ],
+    features: [
+      {
+      icon: Droplets,
+      title: "280мл багтаамж",
+      description: "4 цаг тасралтгүй ажиллана",
+    },
+    {
+      icon: Lightbulb,
+      title: "7 өнгийн LED",
+      description: "Шөнийн гэрэл болно",
+    },
+    {
+      icon: Leaf,
+      title: "Арома тараагч",
+      description: "Дуртай үнэрээ нэмээрэй",
+    },
+    {
+      icon: VolumeX,
+      title: "35дБ чимээгүй",
+      description: "Нойрыг сэрээхгүй",
+    },
+    {
+      icon: Zap,
+      title: "Автомат унтраалт",
+      description: "Ус дуусвал унтарна",
+    },
+    {
+      icon: Hand,
+      title: "Мэдрэгч удирдлага",
+      description: "Нэг хүрэлтээр удирдана",
+    },
+    ],
+    audience: [
+      {
+      icon: Baby,
+      title: "Хүүхэдтэй гэр бүлд",
+      description: "Шөнийн гэрэл + эрүүл агаар нэг дор",
+    },
+    {
+      icon: Moon,
+      title: "Сайн нойрсохыг хүсвэл",
+      description: "Чийглэг агаар = илүү гүн нойр",
+    },
+    {
+      icon: Gift,
+      title: "Бэлэг хайж байвал",
+      description: "Өвөрмөц, хэрэгтэй, гоё",
+    },
+    {
+      icon: Briefcase,
+      title: "Оффисын ширээнд",
+      description: "Хуурай оффисын агаарыг сэргээнэ",
+    },
+    ],
+    boxContents: [
+        "Rain Forest Humidifier (үндсэн төхөөрөмж)",
+    "24V адаптер",
+    "Хэрэглэх заавар",
+    ]
   },
   {
     id: "cloud-tulip-mirror",
     name: "Алтанзул цэцэгт толь",
     price: 45000,
     originalPrice: null,
+    image: "/products/tulip/tulip1.jpg",
+    images: ["/products/tulip/tulip1.jpg", "/products/tulip/tulip2.jpg", "/products/tulip/tulip3.jpg"],
+    reviews: [],
   }
 ]
 
