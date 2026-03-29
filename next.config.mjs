@@ -11,6 +11,7 @@ const nextConfig = {
                 hostname: '**', // ⚠️ Accepts any HTTP hostname
             },
         ],
+        unoptimized: true
     }
 };
 
