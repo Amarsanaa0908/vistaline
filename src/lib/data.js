@@ -223,6 +223,17 @@ export const products = [
     badge: "Шинэ",
   },
   {
+    id: "forest",
+    name: "Forest aroma diffuser",
+    price: 150000,
+    originalPrice: 180000,
+    description: "",
+    rating: 4.9,
+    reviews: 89,
+    image: "/products/forest/forest6.png",
+    images: ["/products/forest/forest4.png","/products/forest/forest2.png","/products/forest/forest3.png",]
+  },
+  {
     id: "raindrop-diffuser",
     name: "Raindrop aroma diffuser",
     price: 84500,
@@ -285,7 +296,10 @@ export const products = [
       helpful: 15,
       verified: true,
       image: "/reviews/review2.jpeg",
-    },],
+    },
+  ],
+
+
 faqs: [
   {
       question: "Хэр удаан ажиллах вэ?",

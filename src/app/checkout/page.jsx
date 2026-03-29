@@ -87,7 +87,7 @@ export default function CheckoutPage() {
           lastName: formData.lastName,
           address: formData.address,
           phoneNumber: formData.phone,
-          city: province?.name_en || "",
+          city: province?.name || "",
           district: district?.name || "",
           delivery: shippingMethod,
           note: formData.note,

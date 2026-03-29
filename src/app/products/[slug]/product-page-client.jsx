@@ -82,6 +82,155 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
     }
   }, [])
 
+  const reviews = [
+    {
+      id: 1,
+      name: "Болормаа Б.",
+      location: "Хан-Уул, Улаанбаатар",
+      rating: 5,
+      date: "2025.12.01",
+      comment: "Хүүхдийн өрөөнд ашиглаж байна. Өмнө нь шөнөдөө ханиалгадаг байсан, одоо арай дээр болсон. Гэрэл нь бас гоё, унтахын өмнө асаадаг боллоо.",
+      helpful: 12,
+      verified: true,
+      image: null,
+    },
+    {
+      id: 2,
+      name: "Тэмүүлэн Д.",
+      location: "Баянзүрх, Улаанбаатар",
+      rating: 5,
+      date: "2025.11.28",
+      comment: "Ээждээ бэлэг авч өгсөн. Өвлийн хуурай агаараас болж арьс нь хуурайшдаг байсан. Одоо өдөр бүр ашиглаж байна гэсэн. Дизайн нь бас өөр юмнаас ялгарч байгаа.",
+      helpful: 8,
+      verified: true,
+      image: "/reviews/review1.jpeg",
+    },
+    {
+      id: 3,
+      name: "Ганзориг М.",
+      location: "Сүхбаатар, Улаанбаатар",
+      rating: 5,
+      date: "2025.11.25",
+      comment: "Оффисынхоо ширээн дээр тавьсан. Агаар хуурай байдаг газар ажилладаг болохоор яг хэрэгтэй зүйл байсан. Чимээгүй, гоё харагддаг.",
+      helpful: 5,
+      verified: true,
+      image: null,
+    },
+    {
+      id: 4,
+      name: "Анужин Т.",
+      location: "Чингэлтэй, Улаанбаатар",
+      rating: 5,
+      date: "2025.11.20",
+      comment: "Хүргэлт хурдан байсан. Шалгаад төлөх боломжтой байсан нь сайн юм. Бараа яг зураг шигээ ирсэн.",
+      helpful: 15,
+      verified: true,
+      image: "/reviews/review2.jpeg",
+    },
+  ]
+
+  // Key features for the product
+  const keyFeatures = [
+    {
+      icon: Droplets,
+      title: "350мл багтаамж",
+      description: "4 цаг тасралтгүй ажиллана",
+    },
+    {
+      icon: Lightbulb,
+      title: "7 өнгийн LED",
+      description: "Шөнийн гэрэл болно",
+    },
+    {
+      icon: Leaf,
+      title: "Арома тараагч",
+      description: "Дуртай үнэрээ нэмээрэй",
+    },
+    {
+      icon: VolumeX,
+      title: "35дБ чимээгүй",
+      description: "Нойрыг сэрээхгүй",
+    },
+    {
+      icon: Zap,
+      title: "Автомат унтраалт",
+      description: "Ус дуусвал унтарна",
+    },
+    {
+      icon: Hand,
+      title: "Мэдрэгч удирдлага",
+      description: "Нэг хүрэлтээр удирдана",
+    },
+  ]
+
+  // Who is it for
+  const targetAudience = [
+    {
+      icon: Baby,
+      title: "Хүүхэдтэй гэр бүлд",
+      description: "Шөнийн гэрэл + эрүүл агаар нэг дор",
+    },
+    {
+      icon: Moon,
+      title: "Сайн нойрсохыг хүсвэл",
+      description: "Чийглэг агаар = илүү гүн нойр",
+    },
+    {
+      icon: Gift,
+      title: "Бэлэг хайж байвал",
+      description: "Өвөрмөц, хэрэгтэй, гоё",
+    },
+    {
+      icon: Briefcase,
+      title: "Оффисын ширээнд",
+      description: "Хуурай оффисын агаарыг сэргээнэ",
+    },
+  ]
+
+  // What's in the box
+  const boxContents = [
+    "Rain Forest Humidifier (үндсэн төхөөрөмж)",
+    "24V адаптер",
+    "Хэрэглэх заавар",
+  ]
+
+  // Specifications
+  const specifications = [
+    { label: "Багтаамж", value: "280мл" },
+    { label: "Ажиллах хугацаа", value: "4 цаг" },
+    { label: "Дуу чимээ", value: "35 дБ" },
+    { label: "Тэжээл", value: "24V адаптер" },
+    { label: "Материал", value: "ABS + PP" },
+    { label: "LED гэрэл", value: "7 өнгө" },
+    { label: "Удирдлага", value: "Мэдрэгчтэй товч" },
+    { label: "Онцлог", value: "Автомат унтраалт" },
+    { label: "Баталгаа", value: "1 жил" },
+  ]
+
+  // Product FAQ
+  const productFaq = [
+    {
+      question: "Хэр удаан ажиллах вэ?",
+      answer: "Нэг удаа дүүргэхэд 4 цаг тасралтгүй ажиллана. 280мл багтаамжтай.",
+    },
+    {
+      question: "Чимээтэй юу?",
+      answer: "Үгүй. 35 дБ — энэ бол шивнэх дуунаас ч чимээгүй. Шөнөжин асааж унтаж болно.",
+    },
+    {
+      question: "Арома тос хэрэглэж болох уу?",
+      answer: "Тийм. Усанд уусдаг арома тос ашиглаж болно. Лаванда, мята, апельсин зэрэг дуртай үнэрээ нэмээрэй.",
+    },
+    {
+      question: "Хүүхдийн өрөөнд ашиглаж болох уу?",
+      answer: "Тийм. Хүүхдийн өрөөнд маш тохиромжтой. Шөнийн гэрэл + чийгшүүлэгч хоёр нэг дор.",
+    },
+    {
+      question: "Яаж цэвэрлэх вэ?",
+      answer: "Долоо хоног бүр усыг солиж, зөөлөн алчуураар арчина. Сар бүр цууны уусмалаар угааж болно.",
+    },
+  ]
+
   if (!product) {
     return (
       <div className="min-h-screen bg-background">
@@ -203,7 +352,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                   <div className="absolute inset-0 flex items-center justify-center bg-black">
                     {/* Replace with your actual video */}
                     <video
-                      src="/video.mp4"
+                      src="/products/forest/forest1.mp4"
                       controls
                       autoPlay
                       muted
@@ -412,7 +561,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
           <div className="relative aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden bg-muted border border-border">
             <video
               ref={videoRef}
-              src="/video.mp4"
+              src="/products/forest/forest1.mp4"
               poster="/homepage/feature3.png"
               className="w-full h-full object-cover"
               muted // Required for autoplay to work in most browsers
