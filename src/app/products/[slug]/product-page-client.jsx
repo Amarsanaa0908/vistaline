@@ -196,8 +196,8 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
 
   // Specifications
   const specifications = [
-    { label: "Багтаамж", value: "280мл" },
-    { label: "Ажиллах хугацаа", value: "4 цаг" },
+    { label: "Багтаамж", value: "350мл" },
+    { label: "Ажиллах хугацаа", value: "8 цаг" },
     { label: "Дуу чимээ", value: "35 дБ" },
     { label: "Тэжээл", value: "24V адаптер" },
     { label: "Материал", value: "ABS + PP" },
@@ -562,7 +562,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
             <video
               ref={videoRef}
               src="/products/forest/forest1.mp4"
-              poster="/homepage/feature3.png"
+              poster="/products/forest/forest6.png"
               className="w-full h-full object-cover"
               muted // Required for autoplay to work in most browsers
               loop // Optional: loop the video
