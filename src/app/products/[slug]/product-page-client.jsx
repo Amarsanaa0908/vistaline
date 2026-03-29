@@ -315,7 +315,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                       setShowVideo(false)
                     }}
                     className={cn(
-                      "relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
+                      "relative shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
                       activeImageIndex === index && !showVideo
                         ? "border-primary ring-2 ring-primary/20"
                         : "border-border hover:border-muted-foreground",
@@ -328,7 +328,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
                 <button
                   onClick={() => setShowVideo(true)}
                   className={cn(
-                    "relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
+                    "relative shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all",
                     showVideo
                       ? "border-primary ring-2 ring-primary/20"
                       : "border-border hover:border-muted-foreground",
@@ -347,7 +347,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
               </div>
 
               {/* Main Image / Video */}
-              <div className="relative flex-1 aspect-[4/5] rounded-2xl overflow-hidden bg-muted">
+              <div className="relative flex-1 aspect-4/5 rounded-2xl overflow-hidden bg-muted">
                 {showVideo ? (
                   <div className="absolute inset-0 flex items-center justify-center bg-black">
                     {/* Replace with your actual video */}
@@ -644,28 +644,28 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
               {activeTab === "howto" && (
                 <div className="space-y-4 max-w-2xl">
                   <div className="flex gap-4 p-4 rounded-lg bg-muted/30">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">1</span>
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">1</span>
                     <div>
                       <h4 className="font-medium text-foreground mb-1">Ус хийнэ</h4>
                       <p className="text-sm text-muted-foreground">Дээд хэсгийг салгаад, MAX зураас хүртэл цэвэр ус хийнэ.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 p-4 rounded-lg bg-muted/30">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">2</span>
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">2</span>
                     <div>
                       <h4 className="font-medium text-foreground mb-1">Арома тос нэмнэ (заавал биш)</h4>
                       <p className="text-sm text-muted-foreground">Усанд 3-5 дусал арома тос нэмж болно.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 p-4 rounded-lg bg-muted/30">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">3</span>
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">3</span>
                     <div>
                       <h4 className="font-medium text-foreground mb-1">Залгаад товчийг дарна</h4>
                       <p className="text-sm text-muted-foreground">Адаптерийг залгаад, мэдрэгчтэй товчийг дарж асаана.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 p-4 rounded-lg bg-muted/30">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">4</span>
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">4</span>
                     <div>
                       <h4 className="font-medium text-foreground mb-1">LED өнгө сонгоно</h4>
                       <p className="text-sm text-muted-foreground">Товчийг дахин дарж 7 өнгөнөөс сонгоно.</p>
@@ -709,7 +709,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
               <ul className="space-y-3">
                 {boxContents.map((item, index) => (
                   <li key={index} className="flex items-center gap-3 text-muted-foreground">
-                    <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                    <Check className="h-4 w-4 text-primary shrink-0" />
                     {item}
                   </li>
                 ))}
