@@ -845,9 +845,9 @@ export default function Home() {
             <h1 className="hero-title">Байгальд<br /><em>байгаа мэт мэдрэмжийг</em><br />гэртээ мэдрээрэй.</h1>
             <p className="hero-sub">3 үйлдэлт ой модонд байгаа мэт агаар чийгшүүлэгч.</p>
             <div className="hero-actions">
-              <a href="#order" className="btn-primary">
-                <Link href={'/products/forest'}>Авах →</Link>
-              </a>
+              
+                <Link className="btn-primary" href={'/products/forest'}>Авах →</Link>
+              
               <a href="#how" className="btn-ghost">Заавартай танилцах</a>
             </div>
           </div>
