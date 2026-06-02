@@ -37,6 +37,7 @@ import {
   MessageCircle
 } from "lucide-react"
 import { useCart } from "@/context/cart-context"
+import { useRouter } from "next/navigation"
 
 export default function ProductPageClient({ product, relatedProducts, upsellProductsData }) {
   const { addToCart } = useCart()
@@ -53,8 +54,17 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [showVideo, setShowVideo] = useState(false)
   const [activeTab, setActiveTab] = useState("description")
+  const router = useRouter()
 
   const videoRef = useRef(null)
+
+  console.log(product)
+
+  useEffect(() => {
+    if (!product) {
+      router.replace('/products/forest')
+    }
+  }, [product, router])
 
   useEffect(() => {
     const video = videoRef.current
@@ -232,6 +242,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
   ]
 
   if (!product) {
+    // router.push('/products/forest')
     return (
       <div className="min-h-screen bg-background">
         <Header />
@@ -258,12 +269,12 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
       `/placeholder.svg?height=600&width=500&query=${product.name} styled`,
     ]
   } else {
-    const mainImg = product.image || `/placeholder.svg?height=600&width=500&query=${product.name}`
+    const mainImg = product?.image || `/placeholder.svg?height=600&width=500&query=${product?.name}`
     thumbnails = [
       mainImg,
-      `/placeholder.svg?height=600&width=500&query=${product.name} back view`,
-      `/placeholder.svg?height=600&width=500&query=${product.name} detail`,
-      `/placeholder.svg?height=600&width=500&query=${product.name} styled`,
+      `/placeholder.svg?height=600&width=500&query=${product?.name} back view`,
+      `/placeholder.svg?height=600&width=500&query=${product?.name} detail`,
+      `/placeholder.svg?height=600&width=500&query=${product?.name} styled`,
     ]
   }
 
@@ -299,7 +310,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
               Нүүр
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">{product.name}</span>
+            <span className="text-foreground">{product?.name}</span>
           </nav>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
