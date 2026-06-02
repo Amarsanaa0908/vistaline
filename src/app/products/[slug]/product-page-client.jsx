@@ -242,6 +242,7 @@ export default function ProductPageClient({ product, relatedProducts, upsellProd
   ]
 
   if (!product) {
+    console.log("checking")
     // router.push('/products/forest')
     return (
       <div className="min-h-screen bg-background">
