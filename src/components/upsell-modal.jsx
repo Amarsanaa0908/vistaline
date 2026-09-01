@@ -79,7 +79,7 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
           <div className="flex gap-4">
             <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted">
               <Image
-                src={"/homepage/feature3.png" || "/placeholder.svg"}
+                src={"/products/forest/forest3.png" || "/placeholder.svg"}
                 alt={mainProduct.name}
                 fill
                 className="object-cover"
@@ -168,9 +168,11 @@ export default function UpsellModal({ open, onClose, products, mainProduct, sele
             </div>
           </div>
           <div className="flex gap-3">
-            <Button variant="outline" className="flex-1 bg-transparent" onClick={onClose}>
+            <Link href="/checkout">
+              <Button variant="outline" className="flex-1 bg-transparent" onClick={onClose}>
               Цааш үзэх
             </Button>
+            </Link>
             <Link href="/checkout" className="flex-1">
               <Button className="w-full gap-2" onClick={handleAddUpsells}>
                 <ShoppingBag className="h-4 w-4" />
