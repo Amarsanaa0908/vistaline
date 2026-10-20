@@ -41,39 +41,39 @@ const setCartItems = useCallback((next) => {
   writeCart(typeof next === "function" ? next(readCart()) : next)
 }, [])
 
-   const addToCart = useCallback((product, selectedColor, selectedSize, quantity = 1) => {
-    setCartItems((prev) => {
-      const colorName = selectedColor?.name || null
-      const existingIndex = prev.findIndex(
-        (item) =>
-          item.id === product.id &&
-          (item.selectedColor?.name || null) === colorName &&
-          item.selectedSize === selectedSize,
-    )
+const addToCart = useCallback((product, selectedColor, selectedSize, quantity = 1) => {
+setCartItems((prev) => {
+  const colorName = selectedColor?.name || null
+  const existingIndex = prev.findIndex(
+    (item) =>
+      item.id === product.id &&
+      (item.selectedColor?.name || null) === colorName &&
+      item.selectedSize === selectedSize,
+)
 
-    if (existingIndex > -1) {
-      const updated = [...prev]
-      updated[existingIndex] = {
-        ...updated[existingIndex],
-        quantity: updated[existingIndex].quantity + quantity
-      }
-      return updated
-    }
+if (existingIndex > -1) {
+  const updated = [...prev]
+  updated[existingIndex] = {
+    ...updated[existingIndex],
+    quantity: updated[existingIndex].quantity + quantity
+  }
+  return updated
+}
 
-    return [
-      ...prev,
-      {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: selectedColor?.image || product.image || product.images?.[0],
-        originalPrice: product.originalPrice,
-        selectedColor: selectedColor || null,
-        selectedSize,
-        quantity,
-      },
-    ]
-  })
+return [
+  ...prev,
+  {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image: selectedColor?.image || product.image || product.images?.[0],
+    originalPrice: product.originalPrice,
+    selectedColor: selectedColor || null,
+    selectedSize,
+    quantity,
+  },
+]
+})
 
   track('AddToCart', [{ id: product.id, price: product.price, quantity }]) // outside the updater
 }, [setCartItems])

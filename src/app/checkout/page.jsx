@@ -32,8 +32,10 @@ export default function CheckoutPage() {
   const [selectedDistrict, setSelectedDistrict] = useState('')
 
   useEffect(() => {
+    console.log("here")
     if (!isLoaded || cartItems.length === 0) return
     if (sessionStorage.getItem('vl_ic')) return
+    console.log("zxczxc")
     sessionStorage.setItem('vl_ic', track('InitiateCheckout', cartItems))
   }, [isLoaded, cartItems])
 
