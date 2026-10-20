@@ -1,35 +1,54 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, useCallback, useRef } from "react"
+import { createContext, useContext, useCallback, useSyncExternalStore } from "react"
+
+import { track } from "@/lib/track"
 
 const CartContext = createContext(undefined)
 
-export function CartProvider({ children }) {
- const [cartItems, setCartItems] = useState(() => {
-  if (typeof window !== 'undefined') {
-    const savedCart = localStorage.getItem("vistaline-cart")
-    return savedCart ? JSON.parse(savedCart) : []
-  }
-  return []
-})
-const [isLoaded, setIsLoaded] = useState(true)
-const addingRef = useRef(false)
+const KEY = "vistaline-cart"
+const EMPTY = []
+const listeners = new Set()
+let cache = { raw: null, value: EMPTY } // keeps the snapshot reference stable
 
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem("vistaline-cart", JSON.stringify(cartItems))
-    }
-  }, [cartItems, isLoaded])
+function readCart() {
+  try {
+    const raw = localStorage.getItem(KEY)
+    if (raw !== cache.raw) cache = { raw, value: raw ? JSON.parse(raw) : EMPTY }
+    return cache.value
+  } catch {
+    return EMPTY
+  }
+}
+
+function writeCart(items) {
+  try { localStorage.setItem(KEY, JSON.stringify(items)) } catch {}
+  listeners.forEach((l) => l())
+}
+
+const subscribe = (cb) => {
+  listeners.add(cb)
+  window.addEventListener("storage", cb) // changes from other tabs
+  return () => { listeners.delete(cb); window.removeEventListener("storage", cb) }
+}
+const subscribeNoop = () => () => {}
+
+export function CartProvider({ children }) {
+const cartItems = useSyncExternalStore(subscribe, readCart, () => EMPTY)
+const isLoaded = useSyncExternalStore(subscribeNoop, () => true, () => false)
+
+const setCartItems = useCallback((next) => {
+  writeCart(typeof next === "function" ? next(readCart()) : next)
+}, [])
 
    const addToCart = useCallback((product, selectedColor, selectedSize, quantity = 1) => {
-  setCartItems((prev) => {
-    const colorName = selectedColor?.name || null
-    const existingIndex = prev.findIndex(
-      (item) =>
-        item.id === product.id &&
-        (item.selectedColor?.name || null) === colorName &&
-        item.selectedSize === selectedSize,
+    setCartItems((prev) => {
+      const colorName = selectedColor?.name || null
+      const existingIndex = prev.findIndex(
+        (item) =>
+          item.id === product.id &&
+          (item.selectedColor?.name || null) === colorName &&
+          item.selectedSize === selectedSize,
     )
 
     if (existingIndex > -1) {
@@ -55,7 +74,9 @@ const addingRef = useRef(false)
       },
     ]
   })
-}, [])
+
+  track('AddToCart', [{ id: product.id, price: product.price, quantity }]) // outside the updater
+}, [setCartItems])
 
   const removeFromCart = (id, colorName, size) => {
     setCartItems((prev) =>
@@ -79,6 +100,7 @@ const addingRef = useRef(false)
 
   const clearCart = () => {
     setCartItems([])
+    sessionStorage.removeItem("vl_ic")
   }
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)

@@ -16,19 +16,26 @@ import { useCart } from "@/context/cart-context"
 import { QRCodeCanvas } from "qrcode.react"
 import { apiList, callGet, callPost } from "@/axios/api"
 import { toast } from "sonner"
-import { getFbc, getFbp } from "@/lib/meta-pixel"
+import { getFbc, getFbp } from "@/lib/metaPixel"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { getDistricts, getProvinces } from "@/lib/locations"
+import { track } from "@/lib/track"
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { cartItems, cartTotal, clearCart, cartCount } = useCart()
+  const { cartItems, cartTotal, clearCart, cartCount, isLoaded } = useCart()
   const [step, setStep] = useState(1)
   const [shippingMethod, setShippingMethod] = useState("standard")
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentData, setPaymentData] = useState()
   const [selectedProvince, setSelectedProvince] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
+
+  useEffect(() => {
+    if (!isLoaded || cartItems.length === 0) return
+    if (sessionStorage.getItem('vl_ic')) return
+    sessionStorage.setItem('vl_ic', track('InitiateCheckout', cartItems))
+  }, [isLoaded, cartItems])
 
   const [formData, setFormData] = useState({
     email: "",

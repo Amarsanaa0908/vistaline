@@ -19,7 +19,8 @@ const apiList = {
     order: "/order",
     check: "/check",
     admin: "/admin",
-    ref: "/ref"
+    ref: "/ref",
+    track: "/track"
 }
 
 export {

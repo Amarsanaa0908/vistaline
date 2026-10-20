@@ -29,18 +29,16 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: "Утас",
-      details: "99XX-XXXX",
+      details: "9514-1452",
       description: "Ажлын өдрүүдэд 10:00 - 20:00",
-      link: "tel:99XXXXXX",
+      link: "tel:95141452",
       buttonText: "Залгах",
       primary: false,
     },
   ]
 
   const businessHours = [
-    { day: "Даваа - Баасан", hours: "10:00 - 20:00" },
-    { day: "Бямба", hours: "11:00 - 18:00" },
-    { day: "Ням", hours: "Амарна" },
+    { day: "Даваа - Ням", hours: "06:00 - 22:00" },
   ]
 
   return (
