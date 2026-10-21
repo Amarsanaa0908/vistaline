@@ -107,6 +107,7 @@ export default function CheckoutPage() {
         if (response.status) {
           setPaymentData(response?.data)
           setStep(3)
+          track('AddPaymentInfo', cartItems)
         } else {
           toast(response.msg[0])
         }
