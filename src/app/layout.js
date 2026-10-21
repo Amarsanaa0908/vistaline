@@ -6,7 +6,6 @@ import { Toaster } from "sonner";
 import FacebookMessenger from "@/components/facebook-messenger";
 import ExitPopup from "@/components/exit-popup";
 import MessengerButton from "@/components/messenger-button";
-import { FbclidCapture } from "@/components/fbclid-capturer";
 import { ConfirmModalProvider } from "@/context/confirm-modal-context";
 import MetaPixel from "@/components/MetaPixels";
 
@@ -35,7 +34,6 @@ export default function RootLayout({ children }) {
           <ConfirmModalProvider>
           {children}
           {/* <MessengerButton /> */}
-          <FbclidCapture />
           <MetaPixel />
           {/* <ExitPopup discountCode="WELCOME10" discountPercent={10} /> */}
           <Analytics />

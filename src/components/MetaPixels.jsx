@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import { pixel } from '@/lib/pixel'
+import { fbcCookieToSet } from '@/lib/trackCore'
 
 // Put <MetaPixel /> once in app/layout.js, inside <body>.
 // It only loads when NEXT_PUBLIC_META_PIXEL_ID is set, so leave that variable
@@ -22,11 +23,11 @@ fbq('track','PageView');
 
 // If the visitor arrives from an ad (?fbclid=...) and the Pixel is blocked, there is no _fbc
 // cookie. Meta allows building it from fbclid, so the server events still carry the click id.
+// A new click (new fbclid) replaces the cookie; the same click keeps its original timestamp.
 function ensureFbcCookie() {
   try {
-    const fbclid = new URLSearchParams(window.location.search).get('fbclid')
-    if (!fbclid || /(?:^|; )_fbc=/.test(document.cookie)) return
-    document.cookie = `_fbc=fb.1.${Date.now()}.${encodeURIComponent(fbclid)}; max-age=${90 * 24 * 3600}; path=/; samesite=lax`
+    const cookie = fbcCookieToSet(window.location.search, document.cookie)
+    if (cookie) document.cookie = cookie
   } catch {
     /* cookies blocked: nothing to do */
   }
