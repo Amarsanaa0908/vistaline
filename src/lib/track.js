@@ -1,33 +1,27 @@
-import { apiList, callPost } from "@/axios/api"
+// Wiring of lib/trackCore.js to our real callPost and apiList.
+import { apiList, callPost } from '@/axios/api'
+import { pixel } from '@/lib/pixel'
+import { createTracker } from '@/lib/trackCore'
 
-// lib/track.js
-const cookie = (n) => document.cookie.split('; ').find((c) => c.startsWith(n + '='))?.split('=')[1] ?? ''
+// The server copy (Conversions API) stays off until the Go route exists.
+// Set NEXT_PUBLIC_META_SERVER_EVENTS=true to turn it on (inlined at build time).
+const serverEnabled = process.env.NEXT_PUBLIC_META_SERVER_EVENTS === 'true'
 
-export function track(name, items) {
-  const data = {
-    content_ids: items.map((i) => String(i.id)),
-    contents: items.map((i) => ({ id: String(i.id), quantity: i.quantity })),
-    content_type: 'product',
-    num_items: items.reduce((s, i) => s + i.quantity, 0),
-    value: items.reduce((s, i) => s + i.price * i.quantity, 0),
-    currency: 'MNT',
-  }
-  const eventId = `${name}_${crypto.randomUUID()}`
-  window.fbq?.('track', name, data, { eventID: eventId })
+const tracker = createTracker({
+  post: serverEnabled ? (url, body) => callPost(url, body) : () => undefined,
+  endpoint: apiList.track,
+  pixel,
+  onError: (err) => {
+    if (process.env.NODE_ENV !== 'production') console.warn('[track] server copy failed', err)
+  },
+})
 
-  callPost(`${apiList.track}`, {
-    "name": name,
-    "eventId": eventId,
-    "data": data,
-    fbp: cookie('_fbp'),
-    fbc: cookie('_fbc'),
-    url: location.href,
-  })
+/**
+ * track('ViewContent' | 'AddToCart' | 'InitiateCheckout' | 'AddPaymentInfo', items)
+ * items: [{ id, price, quantity }]
+ * Purchase is NOT sent from the browser. The Go API sends it after the QPay callback.
+ */
+export const track = tracker.track
 
-//   fetch('/api/track', {
-//     method: 'POST', credentials: 'include', keepalive: true, // keepalive survives the page navigating away
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ name, eventId, data, fbp: cookie('_fbp'), fbc: cookie('_fbc'), url: location.href }),
-//   }).catch(() => {})
-  return eventId
-}
+/** { fbp, fbc, url } to include in the request that creates the order/checkout. */
+export const getTrackingParams = tracker.getTrackingParams

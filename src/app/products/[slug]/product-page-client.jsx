@@ -38,9 +38,11 @@ import {
 } from "lucide-react"
 import { useCart } from "@/context/cart-context"
 import { useRouter } from "next/navigation"
+import { useViewContent } from "@/lib/useViewContent"
 
 export default function ProductPageClient({ product, relatedProducts, upsellProductsData }) {
   const { addToCart } = useCart()
+  useViewContent(product)
 
   const hasColors = product?.colors && product.colors.length > 0
   const hasSizes = product?.sizes && product.sizes.length > 0
