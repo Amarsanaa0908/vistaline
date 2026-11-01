@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
           <MetaPixel />
           {/* <ExitPopup discountCode="WELCOME10" discountPercent={10} /> */}
           <Analytics />
-          <Toaster />
+          <Toaster position="top-left" />
           </ConfirmModalProvider>
         </CartProvider>
       </body>
