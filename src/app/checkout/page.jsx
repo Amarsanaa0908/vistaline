@@ -32,10 +32,8 @@ export default function CheckoutPage() {
   const [selectedDistrict, setSelectedDistrict] = useState('')
 
   useEffect(() => {
-    console.log("here")
     if (!isLoaded || cartItems.length === 0) return
     if (sessionStorage.getItem('vl_ic')) return
-    console.log("zxczxc")
     sessionStorage.setItem('vl_ic', track('InitiateCheckout', cartItems))
   }, [isLoaded, cartItems])
 
@@ -84,6 +82,23 @@ export default function CheckoutPage() {
   //   router.push(`/order-confirmation?order=${paymentData?.orderId}`)
   // }
 
+  const handleStep1Next = () => {
+    const missing = []
+    if (!formData.email.trim()) missing.push("Имэйл хаягаа оруулна уу")
+    if (!formData.firstName.trim()) missing.push("Нэрээ оруулна уу")
+    if (!formData.lastName.trim()) missing.push("Овогоо оруулна уу")
+    if (!selectedProvince) missing.push("Аймаг, хотоо сонгоно уу")
+    if (districts.length > 0 && !selectedDistrict) missing.push("Сум, дүүргээ сонгоно уу")
+    if (!formData.address.trim()) missing.push("Хаягаа оруулна уу")
+    if (!formData.phone.trim()) missing.push("Утасны дугаараа оруулна уу")
+
+    if (missing.length > 0) {
+      toast(missing[0])
+      return
+    }
+    setStep(2)
+  }
+
   const handleNext = async () => {
     setIsProcessing(true)
     if (step === 2) {
@@ -111,8 +126,10 @@ export default function CheckoutPage() {
         } else {
           toast(response.msg[0])
         }
-      } catch (error) {
-        console.log(error)
+          } catch (error) {
+            console.log(error)
+            const serverMsg = error?.response?.data?.msg?.[0]
+            toast(serverMsg || "Алдаа гарлаа. Дахин оролдоно уу")
       }
       
     } else if (step === 3) {
@@ -330,7 +347,7 @@ export default function CheckoutPage() {
                       </div>
                     </div>
 
-                    <Button type="button" size="lg" className="w-full" onClick={() => setStep(2)}>
+                    <Button type="button" size="lg" className="w-full" onClick={handleStep1Next}>
                       Үргэлжлүүлэх
                     </Button>
                   </div>
@@ -433,7 +450,7 @@ export default function CheckoutPage() {
                 <div>
                   <ul className="sm:hidden flex justify-center flex-wrap gap-5">
                     {paymentData &&
-                      paymentData?.urls.map((el, i) => {
+                      paymentData?.urls?.map((el, i) => {
                         return (
                           <li key={i}>
                             <a href={el.link}>
